@@ -76,7 +76,7 @@ const Profile = () => {
                 <ListItemIcon>
                   <MenuBookIcon />
                 </ListItemIcon>
-                <ListItemText primary="Minuun tarinat"/>
+                <ListItemText primary="Minun tarinat"/>
               </ListItem>
               <ListItem button onClick={()=> {
                 setToggleForm(!toggleForm);
