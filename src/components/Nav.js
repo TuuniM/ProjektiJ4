@@ -133,7 +133,7 @@ const Nav = ({history}) => {
           }
         </Toolbar>
       </AppBar>
-      <Drawer hidden open={open} onClose={toggleDrawer(false)}>
+      <Drawer open={open} onClose={toggleDrawer(false)}>
         <List>
           <ListItem
             button
