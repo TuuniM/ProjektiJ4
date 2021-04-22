@@ -245,4 +245,46 @@ const useTag = () => {
 };
 
 
-export {useMedia, useUsers, useLogin, useTag};
+const useComments = () => {
+  const [loading, setLoading] = useState(false);
+
+  const getComments = async (fileId) => {
+    try {
+      const response = await doFetch(baseUrl + 'comments/file/' + fileId);
+      return response;
+    } catch {
+      alert(e.message);
+    }
+  };
+
+  const postComment = async (fd, token) => {
+    setLoading(true);
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'x-access-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(fd),
+    };
+    try {
+      return await doFetch(baseUrl + 'comments', fetchOptions);
+    } catch (e) {
+      throw new Error('posting comment failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // const putComments = async () => {
+
+  // };
+
+  // const deleteComments = async () => {
+
+  // };
+
+
+  return {getComments, postComment, loading};
+};
+export {useMedia, useUsers, useLogin, useTag, useComments};
