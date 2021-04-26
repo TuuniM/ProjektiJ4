@@ -177,7 +177,7 @@ const Single = ({location}) => {
                 )
               }
             </List>
-            <Button variant="contained" color="primary" onClick={()=> {
+            <Button variant="contained" style={{color: '#fffff', background: '#0e7b81'}} onClick={()=> {
               handleOpen();
             }}>Lisää katkelma</Button>
             <Modal

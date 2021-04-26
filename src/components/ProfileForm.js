@@ -150,7 +150,7 @@ const ProfileForm = ({user, setUser, setUpdate}) => {
             </Grid>
 
             <Grid item xs={12}>
-              <Button fullWidth
+              <Button fullWidth style={{background: '#0e7b81'}}
                 color="primary"
                 type="submit"
                 variant="contained">

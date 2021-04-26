@@ -42,7 +42,8 @@ const CommentForm = (fileId) => {
           onChange={(e) =>handleInputChange(e)}
           value={inputs.comment}
         />
-        <Button variant="contained" type="submit" fullWidth>Lisää</Button>
+        {/* eslint-disable-next-line max-len */}
+        <Button variant="contained" type="submit" fullWidth style={{background: '#0e7b81'}}>Lisää</Button>
       </form>
 
     </>

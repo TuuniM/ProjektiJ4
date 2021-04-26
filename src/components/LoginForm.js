@@ -63,7 +63,7 @@ const LoginForm = ({history}) => {
 
             <Grid container item>
               <Button
-                fullWidth
+                fullWidth style={{background: '#0e7b81'}}
                 color="primary"
                 type="submit"
                 variant="contained">

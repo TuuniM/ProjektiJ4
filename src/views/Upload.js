@@ -174,6 +174,7 @@ const Upload = ({history}) => {
                     color="primary"
                     variant="contained"
                     fullWidth
+                    style={{background: '#0e7b81'}}
                   >
                     Julkaise Tarina
                   </Button>

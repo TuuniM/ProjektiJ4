@@ -151,7 +151,7 @@ const RegisterForm = ({setToggle}) => {
             </Grid>
 
             <Grid container item>
-              <Button fullWidth
+              <Button fullWidth style={{background: '#0e7b81'}}
                 color="primary"
                 type="submit"
                 variant="contained">
