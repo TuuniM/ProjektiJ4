@@ -12,11 +12,12 @@ import {
   Typography,
   Button, Drawer, List, ListItem, ListItemIcon, ListItemText, Link,
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Twitter';
+import MenuIcon from '@material-ui/icons/Telegram';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import Account from '@material-ui/icons/Person';
+import Bell from '@material-ui/icons/NotificationsNone';
 import Add from '@material-ui/icons/Add';
 import {CloudUpload} from '@material-ui/icons';
 
@@ -61,7 +62,7 @@ const Nav = ({history}) => {
 
   return (
     <>
-      <AppBar color="secondary">
+      <AppBar style={{background: '#034c4e'}} >
 
         <Toolbar>
           <IconButton
@@ -72,34 +73,27 @@ const Nav = ({history}) => {
             onClick={toggleDrawer(true)}
           >
             <MenuIcon hidden/>
+            Story Domination
           </IconButton>
 
           <Typography variant="h6" className={classes.title}>
             <Link component={RouterLink} to="/" color="inherit"></Link>
+            <Button
+              color="inherit"
+              component={RouterLink}
+              to="/"
+            >
+              Lue
+            </Button>
+            <Button
+              color="inherit"
+              component={RouterLink}
+              to="/"
+            >
+              Kirjoita
+            </Button>
             {user &&
             <>
-              <Button
-                color="inherit"
-                component={RouterLink}
-                startIcon={<Account/>}
-                to="/Profile"
-              >
-                Profiili
-              </Button>
-              <Button
-                color="inherit"
-                component={RouterLink}
-                to="/"
-              >
-              Kirjoita
-              </Button>
-              <Button
-                color="inherit"
-                component={RouterLink}
-                to="/"
-              >
-              Lue
-              </Button>
               <Button
                 color="inherit"
                 component={RouterLink}
@@ -112,7 +106,26 @@ const Nav = ({history}) => {
             }
 
           </Typography>
-
+          {user &&
+          <>
+            <Button
+              color="inherit"
+              component={RouterLink}
+              startIcon={<Bell/>}
+              to="/Profile"
+            >
+              Ilmoitukset
+            </Button>
+            <Button
+              color="inherit"
+              component={RouterLink}
+              startIcon={<Account/>}
+              to="/Profile"
+            >
+              Profiili
+            </Button>
+          </>
+          }
           {user ?
             <Button
               color="inherit"
@@ -120,7 +133,7 @@ const Nav = ({history}) => {
               component={RouterLink}
               to="/logout"
             >
-              Logout
+              Kirjaudu Ulos
             </Button> :
             <Button
               color="inherit"
@@ -128,12 +141,12 @@ const Nav = ({history}) => {
               component={RouterLink}
               to="/login"
             >
-              Login
+              Kirjaudu Sisään
             </Button>
           }
         </Toolbar>
       </AppBar>
-      <Drawer hidden open={open} onClose={toggleDrawer(false)}>
+      <Drawer open={open} onClose={toggleDrawer(false)}>
         <List>
           <ListItem
             button

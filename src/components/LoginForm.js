@@ -67,7 +67,7 @@ const LoginForm = ({history}) => {
                 color="primary"
                 type="submit"
                 variant="contained">
-              Login
+                Login
               </Button>
             </Grid>
           </Grid>
@@ -83,3 +83,4 @@ LoginForm.propTypes = {
 
 
 export default withRouter(LoginForm);
+
