@@ -72,7 +72,7 @@ const Nav = ({history}) => {
             aria-label="menu"
             onClick={toggleDrawer(true)}
           >
-            <MenuIcon hidden/>
+            <MenuIcon />
             Story Domination
           </IconButton>
 
