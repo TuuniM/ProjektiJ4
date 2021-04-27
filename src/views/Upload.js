@@ -16,17 +16,7 @@ import {ValidatorForm, TextValidator,
 import useSlider from '../hooks/SliderHooks';
 import BackButton from '../components/BackButton';
 import {useState} from 'react';
-// import {makeStyles} from '@material-ui/core/styles';
 
-// const useStyles = makeStyles((theme) => ({
-//   formControl: {
-//     margin: theme.spacing(1),
-//     minWidth: 120,
-//   },
-//   selectEmpty: {
-//     marginTop: theme.spacing(2),
-//   },
-// }));
 
 const Upload = ({history}) => {
   const {postMedia, loading} = useMedia();
@@ -43,11 +33,13 @@ const Upload = ({history}) => {
     title: ['required', 'minStringLength: 3'],
     // eslint-disable-next-line max-len
     description: ['minStringLength: 10'],
+    category: ['required'],
   };
 
   const errorMessages = {
     title: ['Otsikko', 'Vähintään 3 merkkiä'],
     description: ['Vähintään 10 merkkiä'],
+    category: ['Valitse kategoria!'],
   };
 
   const doUpload = async () => {
@@ -212,6 +204,8 @@ const Upload = ({history}) => {
                     value={category}
                     label=""
                     onChange={handleChange}
+                    validators={validators.category}
+                    errorMessages={errorMessages.category}
                   >
                     <MenuItem value={'Komedia'}>Komedia</MenuItem>
                     <MenuItem value={'Draama'}>Draama</MenuItem>
