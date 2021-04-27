@@ -35,7 +35,7 @@ const LoginForm = ({history}) => {
         <Typography
           component="h1"
           variant="h2"
-          gutterBottom>Login</Typography>
+          gutterBottom>Kirjaudu sisään</Typography>
       </Grid>
       <Grid item xs={12}>
         <form onSubmit={handleSubmit}>
@@ -45,7 +45,7 @@ const LoginForm = ({history}) => {
                 fullWidth
                 type="text"
                 name="username"
-                label="Username"
+                label="Käyttäjänimi"
                 onChange={handleInputChange}
                 value={inputs.username}
               />
@@ -55,7 +55,7 @@ const LoginForm = ({history}) => {
                 fullWidth
                 type="password"
                 name="password"
-                label="Password"
+                label="Salasana"
                 onChange={handleInputChange}
                 value={inputs.password}
               />
@@ -63,11 +63,11 @@ const LoginForm = ({history}) => {
 
             <Grid container item>
               <Button
-                fullWidth
+                fullWidth style={{background: '#0e7b81'}}
                 color="primary"
                 type="submit"
                 variant="contained">
-              Login
+                Kirjaudu sisään
               </Button>
             </Grid>
           </Grid>
@@ -83,3 +83,4 @@ LoginForm.propTypes = {
 
 
 export default withRouter(LoginForm);
+

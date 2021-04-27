@@ -1,3 +1,4 @@
+import React from 'react';
 import useForm from '../hooks/FormHooks';
 import {useMedia, useTag} from '../hooks/ApiHooks';
 import {
@@ -6,16 +7,37 @@ import {
   Grid,
   Typography,
   Slider,
+  MenuItem,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import {useEffect} from 'react';
-import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import {ValidatorForm, TextValidator,
+  SelectValidator} from 'react-material-ui-form-validator';
 import useSlider from '../hooks/SliderHooks';
 import BackButton from '../components/BackButton';
+import {useState} from 'react';
+// import {makeStyles} from '@material-ui/core/styles';
+
+// const useStyles = makeStyles((theme) => ({
+//   formControl: {
+//     margin: theme.spacing(1),
+//     minWidth: 120,
+//   },
+//   selectEmpty: {
+//     marginTop: theme.spacing(2),
+//   },
+// }));
 
 const Upload = ({history}) => {
   const {postMedia, loading} = useMedia();
-  const {postTag} = useTag();
+  const {postTag, postCategoryTag} = useTag();
+  // const classes = useStyles();
+  const [category, setCategory] = useState('');
+
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+    console.log(event.target.value);
+  };
 
   const validators = {
     title: ['required', 'minStringLength: 3'],
@@ -44,6 +66,15 @@ const Upload = ({history}) => {
           localStorage.getItem('token'),
           result.file_id,
       );
+
+      if (tagResult) {
+        const categoryTag = await postCategoryTag(
+            localStorage.getItem('token'),
+            result.file_id,
+            category,
+        );
+        console.log(categoryTag);
+      }
       console.log('doUpload', result, tagResult);
       history.push('/');
     } catch (e) {
@@ -89,7 +120,7 @@ const Upload = ({history}) => {
     }
   }, [inputs.file]);
 
-  console.log(inputs, sliderInputs);
+  // console.log(inputs, sliderInputs);
 
   return (
     <>
@@ -167,6 +198,27 @@ const Upload = ({history}) => {
                     onChange={handleFileChange}
                   />
                 </Grid>
+                <Typography
+                  component="h4"
+                  variant="h4"
+                  gutterBottom
+                >
+                  Kategoria:
+                </Typography>
+                <Grid item xs={12}>
+                  <SelectValidator
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={category}
+                    label=""
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={'Komedia'}>Komedia</MenuItem>
+                    <MenuItem value={'Draama'}>Draama</MenuItem>
+                    <MenuItem value={'Kauhu'}>Kauhu</MenuItem>
+                  </SelectValidator>
+                </Grid>
+
                 <Grid item xs={12}>
                   <Button
                     margin="10px"
@@ -174,6 +226,7 @@ const Upload = ({history}) => {
                     color="primary"
                     variant="contained"
                     fullWidth
+                    style={{background: '#0e7b81'}}
                   >
                     Julkaise Tarina
                   </Button>

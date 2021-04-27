@@ -68,123 +68,123 @@ const Modify = ({history, location}) => {
             variant="h2"
             gutterBottom
           >
-          Muokkaa tarinaa
+            Muokkaa tarinaa
           </Typography>
         </Grid>
         <Grid item>
           {!loading ?
-        <ValidatorForm onSubmit={handleSubmit}>
-          <Grid container>
-            <Grid item xs={12}>
-              <TextValidator
-                fullWidth
-                name="title"
-                label="Otsikko"
-                value={inputs.title}
-                onChange={handleInputChange}
-                validators={validators.title}
-                errorMessages={errorMessages.title}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextValidator
-                fullWidth
-                name="description"
-                label="Tarinan aloitus"
-                value={inputs.description}
-                onChange={handleInputChange}
-                validators={validators.description}
-                errorMessages={errorMessages.description}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Button
-                type="submit"
-                color="primary"
-                variant="contained"
-                fullWidth
-              >
-              Päivitä
-              </Button>
-            </Grid>
-          </Grid>
+            <ValidatorForm onSubmit={handleSubmit}>
+              <Grid container>
+                <Grid item xs={12}>
+                  <TextValidator
+                    fullWidth
+                    name="title"
+                    label="Otsikko"
+                    value={inputs.title}
+                    onChange={handleInputChange}
+                    validators={validators.title}
+                    errorMessages={errorMessages.title}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextValidator
+                    fullWidth
+                    name="description"
+                    label="Tarinan aloitus"
+                    value={inputs.description}
+                    onChange={handleInputChange}
+                    validators={validators.description}
+                    errorMessages={errorMessages.description}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    fullWidth
+                  >
+                    Päivitä
+                  </Button>
+                </Grid>
+              </Grid>
 
-          <Grid container
-            direction="column"
-            alignItems="center"
-            justify="center"
-          >
-            <Grid item xs={6}>
-              <img
-                src={uploadsUrl + file.filename}
-                style={{
-                  filter: `
+              <Grid container
+                direction="column"
+                alignItems="center"
+                justify="center"
+              >
+                <Grid item xs={6}>
+                  <img
+                    src={uploadsUrl + file.filename}
+                    style={{
+                      filter: `
                       brightness(${sliderInputs.brightness}%)
                       contrast(${sliderInputs.contrast}%)
                       saturate(${sliderInputs.saturate}%)
                       sepia(${sliderInputs.sepia}%)
                       `,
-                  width: '100%',
-                }}
-              />
-            </Grid>
-            <Grid container>
-              <Grid item xs={12}>
-                <Typography>Brightness</Typography>
-                <Slider
-                  min={0}
-                  max={200}
-                  step={1}
-                  name="brightness"
-                  value={sliderInputs?.brightness}
-                  valueLabelDisplay="on"
-                  valueLabelFormat={(value) => value + '%'}
-                  onChange={handleSliderChange}
-                />
+                      width: '100%',
+                    }}
+                  />
+                </Grid>
+                <Grid container>
+                  <Grid item xs={12}>
+                    <Typography>Brightness</Typography>
+                    <Slider
+                      min={0}
+                      max={200}
+                      step={1}
+                      name="brightness"
+                      value={sliderInputs?.brightness}
+                      valueLabelDisplay="on"
+                      valueLabelFormat={(value) => value + '%'}
+                      onChange={handleSliderChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography>Contrast</Typography>
+                    <Slider
+                      min={0}
+                      max={200}
+                      step={1}
+                      name="contrast"
+                      value={sliderInputs?.contrast}
+                      valueLabelDisplay="on"
+                      valueLabelFormat={(value) => value + '%'}
+                      onChange={handleSliderChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography>Saturation</Typography>
+                    <Slider
+                      min={0}
+                      max={200}
+                      step={1}
+                      name="saturate"
+                      value={sliderInputs?.saturate}
+                      valueLabelDisplay="on"
+                      valueLabelFormat={(value) => value + '%'}
+                      onChange={handleSliderChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography>Sepia</Typography>
+                    <Slider
+                      min={0}
+                      max={100}
+                      step={1}
+                      name="sepia"
+                      value={sliderInputs?.sepia}
+                      valueLabelDisplay="on"
+                      valueLabelFormat={(value) => value + '%'}
+                      onChange={handleSliderChange}
+                    />
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <Typography>Contrast</Typography>
-                <Slider
-                  min={0}
-                  max={200}
-                  step={1}
-                  name="contrast"
-                  value={sliderInputs?.contrast}
-                  valueLabelDisplay="on"
-                  valueLabelFormat={(value) => value + '%'}
-                  onChange={handleSliderChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography>Saturation</Typography>
-                <Slider
-                  min={0}
-                  max={200}
-                  step={1}
-                  name="saturate"
-                  value={sliderInputs?.saturate}
-                  valueLabelDisplay="on"
-                  valueLabelFormat={(value) => value + '%'}
-                  onChange={handleSliderChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography>Sepia</Typography>
-                <Slider
-                  min={0}
-                  max={100}
-                  step={1}
-                  name="sepia"
-                  value={sliderInputs?.sepia}
-                  valueLabelDisplay="on"
-                  valueLabelFormat={(value) => value + '%'}
-                  onChange={handleSliderChange}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-        </ValidatorForm> :
-        <CircularProgress/>
+            </ValidatorForm> :
+            <CircularProgress/>
           }
         </Grid>
       </Grid>
@@ -193,10 +193,10 @@ const Modify = ({history, location}) => {
 };
 
 Modify.propTypes =
-{
-  history: PropTypes.object,
-  location: PropTypes.object,
-};
+  {
+    history: PropTypes.object,
+    location: PropTypes.object,
+  };
 
 
 export default Modify;

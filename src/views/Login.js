@@ -13,7 +13,8 @@ const Login = () => {
   return (
     <>
       { toggle ? <LoginForm/> : <RegisterForm setToggle={setToggle}/> }
-      <Button onClick={showHide}>{toggle ? 'or register' : 'or login'}</Button>
+      {/* eslint-disable-next-line max-len */}
+      <Button onClick={showHide}>{toggle ? 'Oletko uusi täällä? Luo tili tästä' : 'Oletko jo rekisteröitynyt? Kirjaudu sisään tästä'}</Button>
     </>
   );
 };

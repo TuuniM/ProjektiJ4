@@ -18,11 +18,12 @@ const RegisterForm = ({setToggle}) => {
   };
 
   const errorMessages = {
-    username: ['vaadittu kenttä', 'vähintään 3 merkkiä', 'tunnus ei oo vapaa'],
-    password: ['vaadittu kenttä', 'vähintään 5 merkkiä'],
-    confirm: ['vaadittu kenttä', 'salasanat eivät täsmää'],
+    // eslint-disable-next-line max-len
+    username: ['vaadittu kenttä', 'vähintään 3 merkkiä', 'Käyttäjäunnus on varattu'],
+    password: ['vaadittu kenttä', 'Vähintään 5 merkkiä'],
+    confirm: ['vaadittu kenttä', 'Salasanat eivät täsmää'],
     email: ['vaadittu kenttä', 'sähköposti väärää muotoa'],
-    full_name: ['vain kirjamia siis hei pliis jooko'],
+    full_name: ['Vain kirjamia'],
   };
 
   const doRegister = async () => {
@@ -56,7 +57,7 @@ const RegisterForm = ({setToggle}) => {
       if (value.length > 2) {
         try {
           const available = await getUserAvailable(value);
-          console.log('onk vapaana', available);
+          console.log('Onko vapaana', available);
           return available;
         } catch (e) {
           console.log(e.message);
@@ -79,7 +80,7 @@ const RegisterForm = ({setToggle}) => {
         <Typography
           component="h1"
           variant="h2"
-          gutterBottom>Register</Typography>
+          gutterBottom>Rekisteröidy</Typography>
       </Grid>
       <Grid item xs={12}>
         <ValidatorForm onSubmit={handleSubmit}>
@@ -89,7 +90,7 @@ const RegisterForm = ({setToggle}) => {
                 fullWidth
                 type="text"
                 name="username"
-                label="Username"
+                label="Käyttäjänimi"
                 onChange={handleInputChange}
                 value={inputs.username}
                 validators={validators.username}
@@ -102,7 +103,7 @@ const RegisterForm = ({setToggle}) => {
                 fullWidth
                 type="password"
                 name="password"
-                label="Password"
+                label="Salasana"
                 onChange={handleInputChange}
                 value={inputs.password}
                 validators={validators.password}
@@ -115,7 +116,7 @@ const RegisterForm = ({setToggle}) => {
                 fullWidth
                 type="password"
                 name="confirm"
-                label="Confirm password"
+                label="Vahvista salasana"
                 onChange={handleInputChange}
                 value={inputs.confirm}
                 validators={validators.confirm}
@@ -128,7 +129,7 @@ const RegisterForm = ({setToggle}) => {
                 fullWidth
                 type="email"
                 name="email"
-                label="Email"
+                label="Sähköposti"
                 onChange={handleInputChange}
                 value={inputs.email}
                 validators={validators.email}
@@ -141,7 +142,7 @@ const RegisterForm = ({setToggle}) => {
                 fullWidth
                 type="text"
                 name="full_name"
-                label="Full name"
+                label="Koko nimi"
                 onChange={handleInputChange}
                 value={inputs.full_name}
                 validators={validators.full_name}
@@ -150,11 +151,11 @@ const RegisterForm = ({setToggle}) => {
             </Grid>
 
             <Grid container item>
-              <Button fullWidth
+              <Button fullWidth style={{background: '#0e7b81'}}
                 color="primary"
                 type="submit"
                 variant="contained">
-                Register
+                Rekisteröidy
               </Button>
             </Grid>
           </Grid>

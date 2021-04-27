@@ -51,11 +51,12 @@ const Single = ({location}) => {
   const [avatar, setAvatar] = useState('logo512.png');
   const classes = useStyles();
   const {getUserById} = useUsers();
-  const {getTag} = useTag();
+  const {getTag, getTagsByFileId} = useTag();
   const {getComments} = useComments();
   const [modalStyle] = useState(getModalStyle);
 
   const [comments, setCommentsData]= useState(null);
+  const [categories, setCategoryData]= useState(null);
 
   const file = location.state;
   let desc = {}; // jos kuva tallennettu ennen week4C, description ei ole JSONia
@@ -76,7 +77,7 @@ const Single = ({location}) => {
     setOpen(false);
   };
 
-  const getCommentsit = async ()=> {
+  const getCommentsit = async () => {
     try {
       const comments = await getComments(file.file_id);
       setCommentsData(comments);
@@ -84,6 +85,17 @@ const Single = ({location}) => {
       console.log(e.message);
     }
   };
+
+  const getCategory = async () => {
+    try {
+      const categories = await getTagsByFileId(file.file_id);
+      setCategoryData(categories);
+      console.log('categories: ' + categories);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
 
   useEffect(()=>{
     const interval=setInterval(()=>{
@@ -103,7 +115,7 @@ const Single = ({location}) => {
         } catch (e) {
           console.log(e.message);
         }
-
+        getCategory();
         getCommentsit();
       }
     })();
@@ -155,6 +167,19 @@ const Single = ({location}) => {
           <CardContent>
 
             <List>
+              {
+                categories?.filter((item) => item.tag != 'storydomination').map((singletag)=> {
+                  return (<ListItem key={singletag.tag_id}>
+                    <Button variant="outlined" style={{color: '#fafafa', background: '#000'}} size="small" disabled>{singletag.tag}</Button>
+                  </ListItem>
+                  );
+                },
+                )
+              }
+            </List>
+
+
+            <List>
               <ListItem>
                 <ListItemAvatar>
                   <Avatar variant={'circle'} src={avatar} />
@@ -177,7 +202,7 @@ const Single = ({location}) => {
                 )
               }
             </List>
-            <Button variant="contained" color="primary" onClick={()=> {
+            <Button variant="contained" style={{color: '#fffff', background: '#0e7b81'}} onClick={()=> {
               handleOpen();
             }}>Lisää katkelma</Button>
             <Modal
