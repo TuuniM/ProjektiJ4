@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import {uploadsUrl} from '../utils/variables';
+import {uploadsUrl, appIdentifier} from '../utils/variables';
 import PropTypes from 'prop-types';
 import {
   Avatar,
@@ -165,10 +165,9 @@ const Single = ({location}) => {
             }}
           />
           <CardContent>
-
             <List>
               {
-                categories?.filter((item) => item.tag != 'storydomination').map((singletag)=> {
+                categories?.filter((item) => item.tag.toLowerCase() != appIdentifier).map((singletag)=> {
                   return (<ListItem key={singletag.tag_id}>
                     <Button variant="outlined" style={{color: '#fafafa', background: '#000'}} size="small" disabled>{singletag.tag}</Button>
                   </ListItem>
