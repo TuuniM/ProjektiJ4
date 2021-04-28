@@ -2,15 +2,14 @@ import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
 import {Link as RouterLink} from 'react-router-dom';
 import {GridListTileBar, IconButton, makeStyles} from '@material-ui/core';
-import PageviewIcon from '@material-ui/icons/Pageview';
+import PageviewIcon from '@material-ui/icons/VisibilityOutlined';
 import DeleteIcon from '@material-ui/icons/Delete';
-import CreateIcon from '@material-ui/icons/Create';
 import {withRouter} from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
   icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
+    color: 'rgba(255,255,255,0.9)',
   },
 }));
 
@@ -39,9 +38,9 @@ const MediaRow = ({file, ownFiles, history, deleteMedia}) => {
             `,
         }}
       />
-      <GridListTileBar
+      <GridListTileBar style={{background: 'rgb(3, 76, 78, 0.93)'}}
         title={file.title}
-        subtitle={ownFiles || desc.description}
+        subtitle={ownFiles}
         actionIcon={
           <>
             <IconButton
@@ -56,39 +55,30 @@ const MediaRow = ({file, ownFiles, history, deleteMedia}) => {
               className={classes.icon}
             >
               <PageviewIcon fontSize="large"/>
+
             </IconButton>
             {ownFiles &&
-            <>
-              <IconButton
-                aria-label={`modify file`}
-                className={classes.icon}
-                component={RouterLink}
-                to={
-                  {
-                    pathname: '/modify',
-                    state: file,
-                  }
-                }
-              >
-                <CreateIcon fontSize="large"/>
-              </IconButton>
-              <IconButton
-                aria-label={`delete file`}
-                className={classes.icon}
-                onClick={() => {
-                  try {
-                    const conf = confirm('Do you really want to delete?');
-                    if (conf) {
-                      deleteMedia(file.file_id, localStorage.getItem('token'));
-                    }
-                  } catch (e) {
-                    console.log(e.message);
-                  }
-                }}
-              >
-                <DeleteIcon fontSize="large"/>
-              </IconButton>
-            </>
+                           <>
+                             <IconButton
+                               aria-label={`delete file`}
+                               className={classes.icon}
+                               onClick={() => {
+                                 try {
+                                   // eslint-disable-next-line max-len
+                                   const conf = confirm('Do you really want to delete?');
+                                   if (conf) {
+                                     // eslint-disable-next-line max-len
+                                     deleteMedia(file.file_id, localStorage.getItem('token'));
+                                   }
+                                 } catch (e) {
+                                   console.log(e.message);
+                                 }
+                               }}
+                             >
+                               <DeleteIcon fontSize="large"/>
+
+                             </IconButton>
+                           </>
             }
           </>
         }

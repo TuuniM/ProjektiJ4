@@ -241,7 +241,36 @@ const useTag = () => {
     }
   };
 
-  return {postTag, getTag};
+  const getTagsByFileId = async (id) => {
+    try {
+      const response = await doFetch(baseUrl + 'tags/file/' + id);
+      return response;
+    } catch (e) {
+      alert(e.message);
+    }
+  };
+
+  const postCategoryTag = async (token, id, tag) => {
+    const data = {
+      file_id: id,
+      tag,
+    };
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'x-access-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+    try {
+      return await doFetch(baseUrl + 'tags', fetchOptions);
+    } catch (e) {
+      throw new Error('tagging failed');
+    }
+  };
+
+  return {postTag, getTag, getTagsByFileId, postCategoryTag};
 };
 
 
@@ -288,4 +317,3 @@ const useComments = () => {
   return {getComments, postComment, loading};
 };
 export {useMedia, useUsers, useLogin, useTag, useComments};
-

@@ -12,25 +12,44 @@ import {
   Typography,
   Button, Drawer, List, ListItem, ListItemIcon, ListItemText, Link,
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Telegram';
+import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import HomeIcon from '@material-ui/icons/Home';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import HomeIcon from '@material-ui/icons/Book';
+// import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import Account from '@material-ui/icons/Person';
 import Bell from '@material-ui/icons/NotificationsNone';
+import Create from '@material-ui/icons/Create';
 import Add from '@material-ui/icons/Add';
-import {CloudUpload} from '@material-ui/icons';
+import PersonIcon from '@material-ui/icons/Person';
+// import {CloudUpload} from '@material-ui/icons';
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    padding: theme.spacing(1),
   },
   menuButton: {
     marginRight: theme.spacing(4),
   },
   title: {
-    flexGrow: 1,
+    [theme.breakpoints.up('md')]: {
+      display: 'block',
+      flexGrow: 1,
+    },
+    display: 'none',
+  },
+  buttonCollapse2: {
+    [theme.breakpoints.up('md')]: {
+      display: 'block',
+    },
+    display: 'none',
+  },
+  drawer: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+    display: 'block',
   },
 }));
 
@@ -44,6 +63,7 @@ const Nav = ({history}) => {
   const toggleDrawer = (opener) => () => {
     setOpen(opener);
   };
+
 
   useEffect(() => {
     const checkUser = async () => {
@@ -65,39 +85,40 @@ const Nav = ({history}) => {
       <AppBar style={{background: '#034c4e'}} >
 
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer(true)}
-          >
-            <MenuIcon />
-            Story Domination
-          </IconButton>
+          <a className={classes.drawer}>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
+            >
 
+              <MenuIcon />
+              <img src="sdlogo.png"/>
+
+            </IconButton>
+          </a>
           <Typography variant="h6" className={classes.title}>
             <Link component={RouterLink} to="/" color="inherit"></Link>
             <Button
               color="inherit"
               component={RouterLink}
               to="/"
-            >
-              Lue
+            >Lue
             </Button>
             <Button
               color="inherit"
               component={RouterLink}
               to="/"
-            >
-              Kirjoita
+            >Kirjoita
             </Button>
             {user &&
             <>
               <Button
                 color="inherit"
                 component={RouterLink}
-                startIcon={<Add/>}
+                // startIcon={<Add/>}
                 to="/Upload"
               >
                 Luo uusi tarina
@@ -106,26 +127,29 @@ const Nav = ({history}) => {
             }
 
           </Typography>
-          {user &&
-          <>
-            <Button
-              color="inherit"
-              component={RouterLink}
-              startIcon={<Bell/>}
-              to="/Profile"
-            >
-              Ilmoitukset
-            </Button>
-            <Button
-              color="inherit"
-              component={RouterLink}
-              startIcon={<Account/>}
-              to="/Profile"
-            >
-              Profiili
-            </Button>
-          </>
-          }
+
+          <a className={classes.buttonCollapse2}>
+            {user &&
+            <>
+              <Button
+                color="inherit"
+                component={RouterLink}
+                startIcon={<Bell/>}
+                to="/Profile"
+              >
+                Ilmoitukset
+              </Button>
+              <Button
+                color="inherit"
+                component={RouterLink}
+                startIcon={<Account/>}
+                to="/Profile"
+              >
+                Profiili
+              </Button>
+            </>
+            }
+          </a>
           {user ?
             <Button
               color="inherit"
@@ -157,7 +181,7 @@ const Nav = ({history}) => {
             <ListItemIcon>
               <HomeIcon/>
             </ListItemIcon>
-            <ListItemText primary="Home"/>
+            <ListItemText primary="Lue"/>
           </ListItem>
           {user &&
           <>
@@ -165,12 +189,12 @@ const Nav = ({history}) => {
               button
               component={RouterLink}
               onClick={toggleDrawer(false)}
-              to="/profile"
+              to="/"
             >
               <ListItemIcon>
-                <AccountBoxIcon/>
+                <Create/>
               </ListItemIcon>
-              <ListItemText primary="Profile"/>
+              <ListItemText primary="Kirjoita"/>
             </ListItem>
             <ListItem
               button
@@ -179,9 +203,20 @@ const Nav = ({history}) => {
               to="/upload"
             >
               <ListItemIcon>
-                <CloudUpload/>
+                <Add/>
               </ListItemIcon>
-              <ListItemText primary="Upload"/>
+              <ListItemText primary="Uusi Tarina"/>
+            </ListItem>
+            <ListItem
+              button
+              component={RouterLink}
+              onClick={toggleDrawer(false)}
+              to="/profile"
+            >
+              <ListItemIcon>
+                <PersonIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Profiili"/>
             </ListItem>
           </>
           }

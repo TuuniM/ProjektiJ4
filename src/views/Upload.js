@@ -1,3 +1,4 @@
+import React from 'react';
 import useForm from '../hooks/FormHooks';
 import {useMedia, useTag} from '../hooks/ApiHooks';
 import {
@@ -6,26 +7,39 @@ import {
   Grid,
   Typography,
   Slider,
+  MenuItem,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import {useEffect} from 'react';
-import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import {ValidatorForm, TextValidator,
+  SelectValidator} from 'react-material-ui-form-validator';
 import useSlider from '../hooks/SliderHooks';
 import BackButton from '../components/BackButton';
+import {useState} from 'react';
+
 
 const Upload = ({history}) => {
   const {postMedia, loading} = useMedia();
-  const {postTag} = useTag();
+  const {postTag, postCategoryTag} = useTag();
+  // const classes = useStyles();
+  const [category, setCategory] = useState('');
+
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+    console.log(event.target.value);
+  };
 
   const validators = {
     title: ['required', 'minStringLength: 3'],
     // eslint-disable-next-line max-len
     description: ['minStringLength: 10'],
+    category: ['required'],
   };
 
   const errorMessages = {
     title: ['Otsikko', 'Vähintään 3 merkkiä'],
     description: ['Vähintään 10 merkkiä'],
+    category: ['Valitse kategoria!'],
   };
 
   const doUpload = async () => {
@@ -44,6 +58,15 @@ const Upload = ({history}) => {
           localStorage.getItem('token'),
           result.file_id,
       );
+
+      if (tagResult) {
+        const categoryTag = await postCategoryTag(
+            localStorage.getItem('token'),
+            result.file_id,
+            category,
+        );
+        console.log(categoryTag);
+      }
       console.log('doUpload', result, tagResult);
       history.push('/');
     } catch (e) {
@@ -89,7 +112,7 @@ const Upload = ({history}) => {
     }
   }, [inputs.file]);
 
-  console.log(inputs, sliderInputs);
+  // console.log(inputs, sliderInputs);
 
   return (
     <>
@@ -167,6 +190,29 @@ const Upload = ({history}) => {
                     onChange={handleFileChange}
                   />
                 </Grid>
+                <Typography
+                  component="h4"
+                  variant="h4"
+                  gutterBottom
+                >
+                  Kategoria:
+                </Typography>
+                <Grid item xs={12}>
+                  <SelectValidator
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={category}
+                    label=""
+                    onChange={handleChange}
+                    validators={validators.category}
+                    errorMessages={errorMessages.category}
+                  >
+                    <MenuItem value={'Komedia'}>Komedia</MenuItem>
+                    <MenuItem value={'Draama'}>Draama</MenuItem>
+                    <MenuItem value={'Kauhu'}>Kauhu</MenuItem>
+                  </SelectValidator>
+                </Grid>
+
                 <Grid item xs={12}>
                   <Button
                     margin="10px"

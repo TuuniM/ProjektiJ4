@@ -34,7 +34,7 @@ const CommentForm = (fileId) => {
         <TextField
           name="comment"
           id="filled-multiline-static"
-          label="Katkelma:"
+          label="My text:"
           multiline
           rows={10}
           fullWidth
@@ -42,8 +42,7 @@ const CommentForm = (fileId) => {
           onChange={(e) =>handleInputChange(e)}
           value={inputs.comment}
         />
-        {/* eslint-disable-next-line max-len */}
-        <Button variant="contained" type="submit" fullWidth style={{background: '#0e7b81'}}>Lisää</Button>
+        <Button variant="contained" type="submit" fullWidth>Lisää</Button>
       </form>
 
     </>

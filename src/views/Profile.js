@@ -51,47 +51,47 @@ const Profile = () => {
         variant="h2"
         gutterBottom>Profiili</Typography>
       {user &&
-        <Card>
-          <CardContent>
-            <List>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar variant={'square'} src={avatar} />
-                </ListItemAvatar>
-                <ListItemText primary={user.username} />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <PersonIcon />
-                </ListItemIcon>
-                <ListItemText primary={user.full_name} />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <EmailIcon />
-                </ListItemIcon>
-                <ListItemText primary={user.email} />
-              </ListItem>
-              <ListItem component={RouterLink} to="/myfiles">
-                <ListItemIcon>
-                  <MenuBookIcon />
-                </ListItemIcon>
-                <ListItemText primary="Minun tarinat"/>
-              </ListItem>
-              <ListItem button onClick={()=> {
-                setToggleForm(!toggleForm);
-              }}>
-                <ListItemIcon>
-                  <CreateIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary=
-                    {toggleForm ? 'Sulje muokkaus' : 'Muokkaa profiilia' }
-                />
-              </ListItem>
-            </List>
-          </CardContent>
-        </Card>
+      <Card>
+        <CardContent>
+          <List>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar variant={'square'} src={avatar} />
+              </ListItemAvatar>
+              <ListItemText primary={user.username} />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <PersonIcon />
+              </ListItemIcon>
+              <ListItemText primary={user.full_name} />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <EmailIcon />
+              </ListItemIcon>
+              <ListItemText primary={user.email} />
+            </ListItem>
+            <ListItem component={RouterLink} to="/myfiles">
+              <ListItemIcon>
+                <MenuBookIcon />
+              </ListItemIcon>
+              <ListItemText primary="Minun tarinat"/>
+            </ListItem>
+            <ListItem button onClick={()=> {
+              setToggleForm(!toggleForm);
+            }}>
+              <ListItemIcon>
+                <CreateIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary=
+                  {toggleForm ? 'Sulje muokkaus' : 'Muokkaa profiilia' }
+              />
+            </ListItem>
+          </List>
+        </CardContent>
+      </Card>
       }
       {toggleForm &&
       <Grid>
@@ -103,3 +103,4 @@ const Profile = () => {
 };
 
 export default Profile;
+
