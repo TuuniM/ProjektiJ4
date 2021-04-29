@@ -15,11 +15,14 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HomeIcon from '@material-ui/icons/Book';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
+// import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import Account from '@material-ui/icons/Person';
 import Bell from '@material-ui/icons/NotificationsNone';
 import Create from '@material-ui/icons/Create';
 import Add from '@material-ui/icons/Add';
+import PersonIcon from '@material-ui/icons/Person';
+// eslint-disable-next-line no-unused-vars
+import green from '@material-ui/core/colors/green';
 // import {CloudUpload} from '@material-ui/icons';
 
 
@@ -200,7 +203,7 @@ const Nav = ({history}) => {
             onClick={toggleDrawer(false)}
             to="/"
           >
-            <ListItemIcon>
+            <ListItemIcon style={{color: 'teal'}}>
               <HomeIcon/>
             </ListItemIcon>
             <ListItemText primary="Lue"/>
@@ -213,7 +216,7 @@ const Nav = ({history}) => {
               onClick={toggleDrawer(false)}
               to="/"
             >
-              <ListItemIcon>
+              <ListItemIcon style={{color: 'teal'}}>
                 <Create/>
               </ListItemIcon>
               <ListItemText primary="Kirjoita"/>
@@ -224,7 +227,7 @@ const Nav = ({history}) => {
               onClick={toggleDrawer(false)}
               to="/upload"
             >
-              <ListItemIcon>
+              <ListItemIcon style={{color: 'teal'}}>
                 <Add/>
               </ListItemIcon>
               <ListItemText primary="Uusi Tarina"/>
@@ -236,7 +239,7 @@ const Nav = ({history}) => {
               to="/profile"
             >
               <ListItemIcon>
-                <AccountBoxIcon/>
+                <PersonIcon style={{color: 'teal'}}/>
               </ListItemIcon>
               <ListItemText primary="Profiili"/>
             </ListItem>

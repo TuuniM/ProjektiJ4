@@ -48,7 +48,7 @@ const Profile = () => {
       <BackButton />
       <Typography
         component="h1"
-        variant="h2"
+        variant="h3"
         gutterBottom>Profiili</Typography>
       {user &&
       <Card>

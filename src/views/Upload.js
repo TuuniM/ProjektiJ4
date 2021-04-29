@@ -126,7 +126,7 @@ const Upload = ({history}) => {
             width: '50%',
             padding: '30px'}}
           component="h1"
-          variant="h2"
+          variant="h3"
           gutterBottom
           color="green"
           >

@@ -142,7 +142,7 @@ const Single = ({location}) => {
       <BackButton />
       <Typography
         component="h1"
-        variant="h2"
+        variant="h3"
         gutterBottom
       >
         {file.title}

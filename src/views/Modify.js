@@ -65,7 +65,7 @@ const Modify = ({history, location}) => {
         <Grid item xs={12}>
           <Typography
             component="h1"
-            variant="h2"
+            variant="h3"
             gutterBottom
           >
             Muokkaa tarinaa
