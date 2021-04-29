@@ -203,7 +203,7 @@ const Nav = ({history}) => {
             onClick={toggleDrawer(false)}
             to="/"
           >
-            <ListItemIcon style={{color: 'teal'}}>
+            <ListItemIcon style={{color: '#0e7b81'}}>
               <HomeIcon/>
             </ListItemIcon>
             <ListItemText primary="Lue"/>
@@ -216,7 +216,7 @@ const Nav = ({history}) => {
               onClick={toggleDrawer(false)}
               to="/"
             >
-              <ListItemIcon style={{color: 'teal'}}>
+              <ListItemIcon style={{color: '#0e7b81'}}>
                 <Create/>
               </ListItemIcon>
               <ListItemText primary="Kirjoita"/>
@@ -227,7 +227,7 @@ const Nav = ({history}) => {
               onClick={toggleDrawer(false)}
               to="/upload"
             >
-              <ListItemIcon style={{color: 'teal'}}>
+              <ListItemIcon style={{color: '#0e7b81'}}>
                 <Add/>
               </ListItemIcon>
               <ListItemText primary="Uusi Tarina"/>
@@ -239,7 +239,7 @@ const Nav = ({history}) => {
               to="/profile"
             >
               <ListItemIcon>
-                <PersonIcon style={{color: 'teal'}}/>
+                <PersonIcon style={{color: '#0e7b81'}}/>
               </ListItemIcon>
               <ListItemText primary="Profiili"/>
             </ListItem>
