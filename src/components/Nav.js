@@ -15,12 +15,11 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HomeIcon from '@material-ui/icons/Book';
-// import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import Account from '@material-ui/icons/Person';
 import Bell from '@material-ui/icons/NotificationsNone';
 import Create from '@material-ui/icons/Create';
 import Add from '@material-ui/icons/Add';
-import PersonIcon from '@material-ui/icons/Person';
 // import {CloudUpload} from '@material-ui/icons';
 
 
@@ -50,6 +49,23 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
     display: 'block',
+    flex: 1,
+  },
+  logout: {
+    [theme.breakpoints.up('md')]: {
+      display: 'block',
+      flexGrow: 1,
+    },
+    display: 'none',
+    flexGrow: 1,
+  },
+  logo: {
+    [theme.breakpoints.up('md')]: {
+      display: 'block',
+      flexGrow: 0,
+    },
+    display: 'block',
+    flexGrow: 1,
   },
 }));
 
@@ -94,10 +110,12 @@ const Nav = ({history}) => {
               onClick={toggleDrawer(true)}
             >
 
-              <MenuIcon />
-              <img src="sdlogo.png"/>
+              <MenuIcon fontSize="large"/>
 
             </IconButton>
+          </a>
+          <a className={classes.logo}>
+            <img src="sdlogo.png"/>
           </a>
           <Typography variant="h6" className={classes.title}>
             <Link component={RouterLink} to="/" color="inherit"></Link>
@@ -134,17 +152,17 @@ const Nav = ({history}) => {
               <Button
                 color="inherit"
                 component={RouterLink}
-                startIcon={<Bell/>}
                 to="/Profile"
               >
+                <Bell fontSize="large"/>
                 Ilmoitukset
               </Button>
               <Button
                 color="inherit"
                 component={RouterLink}
-                startIcon={<Account/>}
                 to="/Profile"
               >
+                <Account fontSize="large"/>
                 Profiili
               </Button>
             </>
@@ -153,19 +171,23 @@ const Nav = ({history}) => {
           {user ?
             <Button
               color="inherit"
-              startIcon={<ExitToAppIcon/>}
               component={RouterLink}
               to="/logout"
             >
-              Kirjaudu Ulos
+              <ExitToAppIcon fontSize="large"/>
+              <a className={classes.logout}>
+                Kirjaudu Ulos
+              </a>
             </Button> :
             <Button
               color="inherit"
-              startIcon={<ExitToAppIcon/>}
               component={RouterLink}
               to="/login"
             >
-              Kirjaudu Sisään
+              <ExitToAppIcon fontSize="large"/>
+              <a className={classes.logout}>
+                Kirjaudu Sisään
+              </a>
             </Button>
           }
         </Toolbar>
@@ -214,7 +236,7 @@ const Nav = ({history}) => {
               to="/profile"
             >
               <ListItemIcon>
-                <PersonIcon/>
+                <AccountBoxIcon/>
               </ListItemIcon>
               <ListItemText primary="Profiili"/>
             </ListItem>

@@ -1,15 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Orelega+One&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Orelega One', cursive;
+  font-weight: normal;
+
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-  monospace;
+  font-family: 'Orelega One', cursive;
 }
 
 .MuiGridListTile-tile {
@@ -45,4 +44,9 @@ table {
 td {
   padding: 1rem;
   border-bottom: #ccc 1px solid;
+}
+
+.MuiTypography-h2 {
+  display: flex;
+  justify-content: center;
 }
