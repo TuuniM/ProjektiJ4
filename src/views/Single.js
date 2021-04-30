@@ -46,6 +46,7 @@ const getModalStyle = () => {
   };
 };
 
+
 const Single = ({location}) => {
   const [owner, setOwner] = useState(null);
   const [avatar, setAvatar] = useState('logo512.png');
@@ -54,9 +55,11 @@ const Single = ({location}) => {
   const {getTag, getTagsByFileId} = useTag();
   const {getComments} = useComments();
   const [modalStyle] = useState(getModalStyle);
-
+  const {postCategoryTag} = useTag();
+  const [readyTag, setReady] = useState('Valmis');
   const [comments, setCommentsData]= useState(null);
   const [categories, setCategoryData]= useState(null);
+
 
   const file = location.state;
   let desc = {}; // jos kuva tallennettu ennen week4C, description ei ole JSONia
@@ -66,6 +69,33 @@ const Single = ({location}) => {
   } catch (e) {
     desc = {description: file.description};
   }
+
+
+  const markAsReady = async () => {
+    try {
+      const ready = await postCategoryTag(
+          localStorage.getItem('token'),
+          file.file_id,
+          'Valmis',
+      );
+      console.log(ready);
+      setReady('Valmis');
+    } catch (e) {
+      alert(e.message);
+    }
+    getCategory();
+  };
+
+  useEffect(() => {
+    if (categories) {
+      if (categories.filter((category) =>category.tag==='Valmis').length>0) {
+        setReady('Valmis');
+      } else {
+        setReady('');
+      }
+    }
+  }, [categories]);
+
 
   const [open, setOpen] = useState(false);
 
@@ -96,7 +126,6 @@ const Single = ({location}) => {
     }
   };
 
-
   useEffect(()=>{
     const interval=setInterval(()=>{
       getCommentsit();
@@ -123,6 +152,7 @@ const Single = ({location}) => {
     return ()=>clearInterval(interval);
   }, [open]);
 
+
   if (file.media_type === 'image') file.media_type = 'img';
 
 
@@ -142,7 +172,7 @@ const Single = ({location}) => {
       <BackButton />
       <Typography
         component="h1"
-        variant="h3"
+        variant="h2"
         gutterBottom
       >
         {file.title}
@@ -188,8 +218,6 @@ const Single = ({location}) => {
             </List>
             <Typography gutterBottom>{desc.description}</Typography>
 
-
-            {/* <Typography>Comments:</Typography> */}
             <List>
               {
                 comments?.map((singlecomment)=> {
@@ -201,9 +229,10 @@ const Single = ({location}) => {
                 )
               }
             </List>
-            <Button variant="contained" style={{color: '#fffff', background: '#0e7b81'}} onClick={()=> {
+            { (readyTag!=='Valmis') && <Button variant="contained" style={{color: '#fffff', background: '#0e7b81'}} onClick={()=> {
               handleOpen();
             }}>Lisää katkelma</Button>
+            }
             <Modal
               open={open}
               onClose={handleClose}
@@ -214,6 +243,11 @@ const Single = ({location}) => {
             >
               {body}
             </Modal>
+            {
+              (readyTag!=='Valmis') && <Button variant="contained" style={{color: '#fffff', background: '#0e7b81'}} onClick={()=> {
+                markAsReady();
+              }}>Merkitse valmiiksi</Button>
+            }
           </CardContent>
         </Card>
       </Paper>
