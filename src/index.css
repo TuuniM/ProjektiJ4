@@ -1,17 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+  margin: 0 auto;
+  font-family: 'Montserrat';
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: 'Orelega One', cursive;
 }
 
+.MuiGridListTile-tile {
+  color: #0b7;
+  transition: 0.8s;
+  cursor: pointer;
+  border: 1px solid #034c4e;
+  -webkit-transition:0.8s;
+  border-radius: 10px;
+  scale: 0.98;
+  opacity: 0.95;
+  height: 200%;
+  text-size: 10px;
+}
+
+.MuiGridListTile-tile:hover {
+  border: 1px solid rgb(173, 235, 211);
+  color: #ffffff;
+  scale: 1;
+  opacity: 1;
+}
+
+.MuiGridListTile-tile :hover {
+  scale: 1;
+}
 /* App.js */
 table {
   width: 40rem;
@@ -24,3 +48,7 @@ td {
   border-bottom: #ccc 1px solid;
 }
 
+.MuiTypography-h3 {
+  display: flex;
+  justify-content: center;
+}

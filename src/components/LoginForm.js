@@ -83,4 +83,3 @@ LoginForm.propTypes = {
 
 
 export default withRouter(LoginForm);
-

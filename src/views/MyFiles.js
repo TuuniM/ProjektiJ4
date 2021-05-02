@@ -8,7 +8,7 @@ const MyFiles = () => {
       <BackButton />
       <Typography
         component="h1"
-        variant="h2"
+        variant="h3"
         gutterBottom>Minun tarinat</Typography>
       <MediaTable ownFiles={true}/>
     </>
