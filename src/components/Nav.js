@@ -104,9 +104,11 @@ const Nav = ({history}) => {
 
         if (
           categories
-              .indexOf(window.location.pathname.substr(1)) === -1 &&
+              .indexOf(window.location.pathname.substr(1).toLowerCase()) ===
+              -1 &&
             categories
-                .indexOf(window.location.pathname.substr(1)) === -1 &&
+                .indexOf(window.location.pathname.substr(1).toLowerCase()) ===
+                -1 &&
               window.location.pathname !== ('/valmis') ) {
           history.push('/');
         }

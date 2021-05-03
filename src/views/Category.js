@@ -12,7 +12,7 @@ const Category = () => {
     if (category == 'valmis') {
       categoryTitle = 'Lue';
     } else {
-      categoryTitle = category[0].toUpperCase()+category.slice(1);
+      categoryTitle = category[0].toUpperCase()+category.slice(1).toLowerCase();
     }
 
     return categoryTitle;
