@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 const MediaRow = ({file, ownFiles, history, deleteMedia}) => {
   const classes = useStyles();
 
-  let desc = {}; // jos kuva tallennettu ennen week4C, description ei ole JSONia
+  let desc = {};
   try {
     desc = JSON.parse(file.description);
     console.log(desc);

@@ -2,11 +2,8 @@ import useForm from '../hooks/FormHooks';
 import {useComments} from '../hooks/ApiHooks';
 import PropTypes from 'prop-types';
 import {Button, TextField} from '@material-ui/core';
-// import {useContext} from 'react';
-// import {MediaContext} from '../contexts/MediaContext';
 
 const CommentForm = (fileId) => {
-  // const {comment} = useContext(MediaContext);
   const {postComment} = useComments();
 
   const doComment = async () => {

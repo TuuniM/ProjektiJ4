@@ -62,7 +62,7 @@ const Single = ({location}) => {
 
 
   const file = location.state;
-  let desc = {}; // jos kuva tallennettu ennen week4C, description ei ole JSONia
+  let desc = {};
   try {
     desc = JSON.parse(file.description);
     console.log(desc);
@@ -198,7 +198,7 @@ const Single = ({location}) => {
             <List>
               {
                 categories?.filter((item) => item.tag.toLowerCase() != appIdentifier).map((singletag)=> {
-                  return (<ListItem key={singletag.tag_id}>
+                  return (<ListItem key={'single'+singletag.tag_id}>
                     <Button variant="outlined" style={{color: '#fafafa', background: '#000'}} size="small" disabled>{singletag.tag}</Button>
                   </ListItem>
                   );

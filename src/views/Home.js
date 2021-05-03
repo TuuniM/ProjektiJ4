@@ -6,7 +6,7 @@ const Home = () => {
     <>
       <Typography
         component="h1"
-        variant="h3"
+        variant="h2"
         gutterBottom>Tarinat</Typography>
       <MediaTable ownFiles={false}/>
     </>

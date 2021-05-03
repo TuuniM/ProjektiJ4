@@ -1,7 +1,9 @@
 /* eslint-disable max-len */
 import {useEffect, useState, useContext} from 'react';
-import {appIdentifier, baseUrl} from '../utils/variables';
+import {appIdentifier, baseUrl, categories} from '../utils/variables';
 import {MediaContext} from '../contexts/MediaContext';
+
+console.log(categories);
 
 // general function for fetching (options default value is empty object)
 const doFetch = async (url, options = {}) => {
@@ -20,38 +22,88 @@ const doFetch = async (url, options = {}) => {
 };
 
 // set update to true, if you want to use getMedia automagically
-const useMedia = (update = false, ownFiles) => {
+const useMedia = (update = false, ownFiles, category) => {
   const [picArray, setPicArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const [user] = useContext(MediaContext);
+  console.log('kategoria:' + category);
+
+  const updateMedia = async () => {
+    try {
+      (async () => {
+        if (category !== undefined) {
+          const media = await getMediaByCategory();
+          setPicArray(media);
+        } else {
+          const media = await getMedia();
+          setPicArray(media);
+        }
+      })();
+    } catch (e) {
+      alert(e.message);
+    }
+  };
 
   if (update) {
     useEffect(() => {
-      try {
-        (async () => {
-          const media = await getMedia();
-          setPicArray(media);
-        })();
-      } catch (e) {
-        alert(e.message);
-      }
+      updateMedia();
     }, []);
   }
 
   const getMedia = async () => {
     try {
       setLoading(true);
+
       const files = await doFetch(baseUrl + 'tags/' + appIdentifier);
-      // console.log(files);
+
       let allFiles = await Promise.all(files.map(async (item) => {
         return await doFetch(baseUrl + 'media/' + item.file_id);
       }));
+
+      if (category !== undefined) {
+        jotaa = true;
+        const filesByCategory = await doFetch(baseUrl + 'tags/' + category);
+        console.log(filesByCategory);
+
+        const allCategoryFiles = await Promise.all(filesByCategory.map(async (item) => {
+          return await doFetch(baseUrl + 'media/' + item.file_id);
+        }));
+        return allCategoryFiles;
+      }
+
       if (ownFiles && user !== null) {
         allFiles = allFiles.filter((item) => {
           return item.user_id === user.user_id;
         });
       }
+
       return allFiles;
+    } catch (e) {
+      throw new Error(e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getMediaByCategory = async () => {
+    try {
+      setLoading(true);
+      const files = await doFetch(baseUrl + 'tags/' + category);
+      // console.log(files);
+      const allFiles = await Promise.all(files.map(async (item) => {
+        return await doFetch(baseUrl + 'media/' + item.file_id);
+      }));
+
+      const noduplicates= allFiles.reduce((acc, current) => {
+        const x = acc.find((item) => item.file_id === current.file_id);
+        if (!x) {
+          return acc.concat([current]);
+        } else {
+          return acc;
+        }
+      }, []);
+
+      return noduplicates;
     } catch (e) {
       throw new Error(e.message);
     } finally {
@@ -117,7 +169,7 @@ const useMedia = (update = false, ownFiles) => {
     }
   };
 
-  return {getMedia, postMedia, putMedia, deleteMedia, loading, picArray};
+  return {updateMedia, getMedia, getMediaByCategory, postMedia, putMedia, deleteMedia, loading, picArray};
 };
 
 const useUsers = () => {

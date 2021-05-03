@@ -16,12 +16,11 @@ import {ValidatorForm, TextValidator,
 import useSlider from '../hooks/SliderHooks';
 import BackButton from '../components/BackButton';
 import {useState} from 'react';
-
+import {categories} from '../utils/variables';
 
 const Upload = ({history}) => {
   const {postMedia, loading} = useMedia();
   const {postTag, postCategoryTag} = useTag();
-  // const classes = useStyles();
   const [category, setCategory] = useState('');
 
   const handleChange = (event) => {
@@ -46,7 +45,6 @@ const Upload = ({history}) => {
     try {
       const fd = new FormData();
       fd.append('title', inputs.title);
-      // kuvaus + filtterit tallennetaan description kenttään
       const desc = {
         description: inputs.description,
         filters: sliderInputs,
@@ -207,9 +205,11 @@ const Upload = ({history}) => {
                     validators={validators.category}
                     errorMessages={errorMessages.category}
                   >
-                    <MenuItem value={'Komedia'}>Komedia</MenuItem>
-                    <MenuItem value={'Draama'}>Draama</MenuItem>
-                    <MenuItem value={'Kauhu'}>Kauhu</MenuItem>
+                    {categories.map((item) =>
+                      <MenuItem key={item} value={item}>
+                        {item[0].toUpperCase()+item.slice(1)}
+                      </MenuItem>,
+                    )}
                   </SelectValidator>
                 </Grid>
 

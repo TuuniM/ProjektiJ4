@@ -10,6 +10,7 @@ import {MediaProvider} from './contexts/MediaContext';
 import {Container} from '@material-ui/core';
 import MyFiles from './views/MyFiles';
 import Modify from './views/Modify';
+import Category from './views/Category';
 
 const App = () => {
   return (
@@ -19,7 +20,6 @@ const App = () => {
           <Nav />
           <main style={{marginTop: 80, marginBottom: 40}}>
             <Switch>
-              <Route path="/" exact component={Home}/>
               <Route path="/login" component={Login}/>
               <Route path="/profile" component={Profile}/>
               <Route path="/single" component={Single}/>
@@ -27,10 +27,13 @@ const App = () => {
               <Route path="/upload" component={Upload}/>
               <Route path="/myfiles" component={MyFiles}/>
               <Route path="/modify" component={Modify}/>
+              <Route path="/:category" exact component={Category}/>
+              <Route path="/" exact component={Home}/>
             </Switch>
           </main>
         </Container>
       </MediaProvider>
+
     </Router>
   );
 };

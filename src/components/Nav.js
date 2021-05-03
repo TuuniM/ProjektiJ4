@@ -10,7 +10,8 @@ import {
   makeStyles,
   Toolbar,
   Typography,
-  Button, Drawer, List, ListItem, ListItemIcon, ListItemText, Link,
+  Button,
+  Drawer, List, ListItem, ListItemIcon, ListItemText, Link, Menu, MenuItem,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -21,6 +22,8 @@ import Bell from '@material-ui/icons/NotificationsNone';
 import Create from '@material-ui/icons/Create';
 import Add from '@material-ui/icons/Add';
 import PersonIcon from '@material-ui/icons/Person';
+import React from 'react';
+import {categories} from '../utils/variables';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,10 +78,19 @@ const Nav = ({history}) => {
   const [open, setOpen] = useState(false);
   const {getUser} = useUsers();
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
   const toggleDrawer = (opener) => () => {
     setOpen(opener);
   };
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     const checkUser = async () => {
@@ -86,9 +98,35 @@ const Nav = ({history}) => {
         const token = localStorage.getItem('token');
         const userData = await getUser(token);
         setUser(userData);
+
+        console.log('test: ' + window.location.pathname.substr(1));
+
+
+        if (
+          categories
+              .indexOf(window.location.pathname.substr(1)) === -1 &&
+            categories
+                .indexOf(window.location.pathname.substr(1)) === -1 &&
+              window.location.pathname !== ('/valmis') ) {
+          history.push('/');
+        }
       } catch (e) {
         // send to login
-        history.push('/');
+        if (window.location.pathname.includes('/myfiles') ||
+        window.location.pathname.includes('/Upload')) {
+          history.push('/login');
+        }
+
+
+        if (
+          categories
+              .indexOf(window.location.pathname.substr(1)) === -1 &&
+            categories
+                .indexOf(window.location.pathname.substr(1)) === -1 &&
+              window.location.pathname !== ('/valmis') &&
+              window.location.pathname !== ('/')) {
+          history.push('/login');
+        }
       }
     };
 
@@ -114,22 +152,45 @@ const Nav = ({history}) => {
             </IconButton>
           </a>
           <a className={classes.logo}>
-            <img src="sdlogo.png"/>
+            <img src="../sdlogo.png"/>
           </a>
           <Typography variant="h6" className={classes.title}>
             <Link component={RouterLink} to="/" color="inherit"></Link>
             <Button
               color="inherit"
               component={RouterLink}
-              to="/"
+              to="/valmis"
             >Lue
             </Button>
+
             <Button
               color="inherit"
               component={RouterLink}
               to="/"
             >Kirjoita
             </Button>
+
+            <Button aria-controls="simple-menu" aria-haspopup="true"
+              onClick={handleClick}>
+             Hae kategorialla
+            </Button>
+
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              {
+                categories.map((item) =>
+                  <MenuItem key={item} onClick={handleClose}>
+                    <Link component={RouterLink} to={item}
+                      color="inherit">
+                      {item[0].toUpperCase()+item.slice(1)}</Link>
+                  </MenuItem>,
+                )}
+            </Menu>
             {user &&
             <>
               <Button
@@ -140,6 +201,8 @@ const Nav = ({history}) => {
               >
                 Luo uusi tarina
               </Button>
+
+
             </>
             }
 

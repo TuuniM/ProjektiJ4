@@ -10,7 +10,7 @@ const MyFiles = () => {
         component="h1"
         variant="h3"
         gutterBottom>Minun tarinat</Typography>
-      <MediaTable ownFiles={true}/>
+      <MediaTable ownFiles={false}/>
     </>
   );
 };
