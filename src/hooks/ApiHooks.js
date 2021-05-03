@@ -60,17 +60,6 @@ const useMedia = (update = false, ownFiles, category) => {
         return await doFetch(baseUrl + 'media/' + item.file_id);
       }));
 
-      if (category !== undefined) {
-        jotaa = true;
-        const filesByCategory = await doFetch(baseUrl + 'tags/' + category);
-        console.log(filesByCategory);
-
-        const allCategoryFiles = await Promise.all(filesByCategory.map(async (item) => {
-          return await doFetch(baseUrl + 'media/' + item.file_id);
-        }));
-        return allCategoryFiles;
-      }
-
       if (ownFiles && user !== null) {
         allFiles = allFiles.filter((item) => {
           return item.user_id === user.user_id;
@@ -89,7 +78,7 @@ const useMedia = (update = false, ownFiles, category) => {
     try {
       setLoading(true);
       const files = await doFetch(baseUrl + 'tags/' + category);
-      // console.log(files);
+
       const allFiles = await Promise.all(files.map(async (item) => {
         return await doFetch(baseUrl + 'media/' + item.file_id);
       }));
