@@ -17,10 +17,11 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HomeIcon from '@material-ui/icons/Book';
 // import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import Account from '@material-ui/icons/Person';
-import Bell from '@material-ui/icons/NotificationsNone';
+// import Bell from '@material-ui/icons/NotificationsNone';
 import Create from '@material-ui/icons/Create';
 import Add from '@material-ui/icons/Add';
 import PersonIcon from '@material-ui/icons/Person';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -151,10 +152,10 @@ const Nav = ({history}) => {
               <Button
                 color="inherit"
                 component={RouterLink}
-                to="/Profile"
+                to="/Info"
               >
-                <Bell fontSize="large"/>
-                Ilmoitukset
+                <InfoOutlinedIcon fontSize="large"/>
+                Info
               </Button>
               <Button
                 color="inherit"

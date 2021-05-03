@@ -1,16 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
-body {
-  margin: 0 auto;
-  font-family: 'Montserrat';
-}
-
 body {
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: 'Orelega One', cursive;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
 }
 
 .MuiGridListTile-tile {
@@ -36,6 +35,48 @@ code {
 .MuiGridListTile-tile :hover {
   scale: 1;
 }
+
+.MuiTypography-h2 {
+  display: flex;
+  justify-content: center;
+}
+
+.MuiCardMedia-root {
+  margin:0px;
+  width:100%;
+  height:250px;
+  background:#fff;
+  border: solid black;
+  border-color: black;
+  float: right;
+  border-width: 3px 4px 3px 5px;
+  border-radius:95% 4% 92% 5%/4% 95% 6% 95%;
+  transform: rotate(2deg);
+}
+
+.MuiCardMedia-media {
+  width: 30%;
+}
+
+.MuiTypography-rootMuiTypography-h3MuiTypography-gutterBottom {
+  background-color: #034c4e;
+}
+
+.MuiTypography-h3 {
+  display: flex;
+  justify-content: center;
+}
+
+.MuiTypography-h4 {
+  display: flex;
+  justify-content: center;
+}
+
+.MuiTypography-h5 {
+  display: flex;
+  justify-content: center;
+}
+
 /* App.js */
 table {
   width: 40rem;
@@ -48,7 +89,13 @@ td {
   border-bottom: #ccc 1px solid;
 }
 
-.MuiTypography-h3 {
-  display: flex;
-  justify-content: center;
+.player-wrapper {
+  position: relative;
+  padding-top: 56.25% /* Player ratio: 100 / (1280 / 720) */
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
