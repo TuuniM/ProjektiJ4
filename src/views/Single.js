@@ -10,7 +10,7 @@ import {
   makeStyles,
   Paper,
   // TextField,
-  Typography,
+  Typography, Tooltip,
 } from '@material-ui/core';
 import BackButton from '../components/BackButton';
 import CommentForm from '../components/CommentForm';
@@ -197,6 +197,7 @@ const Single = ({location}) => {
 
             <div style={{display: 'flex'}}>
               <List style={flexContainer}>
+
                 {
                   categories?.filter((item) => item.tag.toLowerCase() != appIdentifier).map((singletag)=> {
                     return (<ListItem style={{width: 'auto'}} key={'single'+singletag.tag_id}>
@@ -206,6 +207,7 @@ const Single = ({location}) => {
                   },
                   )
                 }
+
               </List>
               <List>
                 <ListItem style={{display: 'none'}}>
@@ -238,9 +240,24 @@ const Single = ({location}) => {
                 )
               }
             </List>
-            { (readyTag!=='Valmis') && <Button disabled={(localStorage.getItem('token') == null)} variant="contained" style={{color: '#fffff', background: '#0e7b81'}} onClick={()=> {
-              handleOpen();
-            }}><AssignmentIcon style={{marginLeft: -10, marginRight: 5, color: 'white'}}/>Lisää katkelma</Button>
+            { (readyTag!=='Valmis') &&
+            <Tooltip
+              arrow
+              title={(localStorage.getItem('token') == null) ? 'Kirjaudu sisään!' : ''}
+              placement="top"
+              aria-label="Lisää katkelma">
+              <span>
+                <Button
+                  disabled={(localStorage.getItem('token') == null)}
+                  variant="contained"
+                  style={{color: '#fffff', background: '#0e7b81'}}
+                  onClick={()=> {
+                    handleOpen();
+                  }}><AssignmentIcon style={{marginLeft: -10, marginRight: 5, color: 'white'}}/>
+                  Lisää katkelma
+                </Button>
+              </span>
+            </Tooltip>
             }
             <Modal
               open={open}
@@ -253,9 +270,25 @@ const Single = ({location}) => {
               {body}
             </Modal>
             {
-              (readyTag!=='Valmis') && <Button disabled={(localStorage.getItem('token') == null)} variant="contained" style={{color: '#fffff', background: '#0e7b81', margin: '5px'}} onClick={()=> {
-                markAsReady();
-              }}><AssignmentTurnedInIcon style={{marginLeft: -10, marginRight: 5, color: 'white'}}/>Merkitse valmiiksi</Button>
+              (readyTag!=='Valmis') &&
+              <Tooltip
+                arrow
+                title={(localStorage.getItem('token') == null) ? 'Kirjaudu sisään!' : '' || (comments?.length < 5 && (localStorage.getItem('token') !== null)) ? 'Vaaditaan vähintään 5 katkelmaa' : '' }
+                placement="top"
+                aria-label="Merkkaa valmiiksi">
+                <span>
+                  <Button
+                    disabled={(localStorage.getItem('token') == null) || (comments?.length < 5)}
+                    variant="contained"
+                    style={{color: '#fffff', background: '#0e7b81', margin: '5px'}}
+                    onClick={()=> {
+                      markAsReady();
+                    }}>
+                    <AssignmentTurnedInIcon style={{marginLeft: -10, marginRight: 5, color: 'white'}}/>
+                    Merkitse valmiiksi
+                  </Button>
+                </span>
+              </Tooltip>
             }
           </CardContent>
         </Card>
