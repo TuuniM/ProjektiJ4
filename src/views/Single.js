@@ -47,6 +47,14 @@ const getModalStyle = () => {
   };
 };
 
+const flexContainer = {
+  display: 'flex',
+  flexWrap: 'wrap',
+  flexDirection: 'row',
+  margin: '1px',
+  alignItems: 'flex-start',
+};
+
 
 const Single = ({location}) => {
   const [owner, setOwner] = useState(null);
@@ -196,11 +204,11 @@ const Single = ({location}) => {
             }}
           />
           <CardContent>
-            <List>
+            <List style={flexContainer}>
               {
                 categories?.filter((item) => item.tag.toLowerCase() != appIdentifier).map((singletag)=> {
-                  return (<ListItem key={'single'+singletag.tag_id}>
-                    <Button variant="outlined" style={{color: '#fafafa', background: '#000'}} size="small" disabled>{singletag.tag}</Button>
+                  return (<ListItem style={{width: 'auto'}} key={'single'+singletag.tag_id}>
+                    <Button variant="outlined" style={{width: 'auto', color: '#fafafa', background: '#000'}} size="small" disabled>{singletag.tag}</Button>
                   </ListItem>
                   );
                 },
