@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
 import {useEffect, useState, useContext} from 'react';
-import {appIdentifier, baseUrl, categories} from '../utils/variables';
+import {appIdentifier, baseUrl} from '../utils/variables';
 import {MediaContext} from '../contexts/MediaContext';
 
-console.log(categories);
+// console.log(categories);
 
 // general function for fetching (options default value is empty object)
 const doFetch = async (url, options = {}) => {
@@ -26,7 +26,6 @@ const useMedia = (update = false, ownFiles, category) => {
   const [picArray, setPicArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const [user] = useContext(MediaContext);
-  console.log('kategoria:' + category);
 
   const updateMedia = async () => {
     try {

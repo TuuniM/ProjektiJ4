@@ -18,7 +18,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HomeIcon from '@material-ui/icons/Book';
 // import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import Account from '@material-ui/icons/Person';
-import Bell from '@material-ui/icons/NotificationsNone';
+// import Bell from '@material-ui/icons/NotificationsNone';
 import Create from '@material-ui/icons/Create';
 import Add from '@material-ui/icons/Add';
 import PersonIcon from '@material-ui/icons/Person';
@@ -26,6 +26,7 @@ import React from 'react';
 import {categories} from '../utils/variables';
 import InfoIcon from '@material-ui/icons/Info';
 import SearchIcon from '@material-ui/icons/Search';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -101,9 +102,6 @@ const Nav = ({history}) => {
         const userData = await getUser(token);
         setUser(userData);
 
-        console.log('test: ' + window.location.pathname.substr(1));
-
-
         if (
           categories
               .indexOf(window.location.pathname.substr(1).toLowerCase()) ===
@@ -112,7 +110,8 @@ const Nav = ({history}) => {
                 .indexOf(window.location.pathname.substr(1).toLowerCase()) ===
                 -1 &&
               window.location.pathname !== ('/valmis') &&
-              window.location.pathname !== ('/info')) {
+              window.location.pathname !== ('/info') &&
+              window.location.pathname !== ('/single')) {
           history.push('/');
         }
       } catch (e) {
@@ -130,7 +129,8 @@ const Nav = ({history}) => {
                 .indexOf(window.location.pathname.substr(1)) === -1 &&
               window.location.pathname !== ('/valmis') &&
               window.location.pathname !== ('/') &&
-              window.location.pathname !== ('/info')) {
+              window.location.pathname !== ('/info') &&
+              window.location.pathname !== ('/single')) {
           history.push('/login');
         }
       }
@@ -220,10 +220,10 @@ const Nav = ({history}) => {
               <Button
                 color="inherit"
                 component={RouterLink}
-                to="/Profile"
+                to="/info"
               >
-                <Bell fontSize="large"/>
-                Ilmoitukset
+                <InfoOutlinedIcon fontSize="large"/>
+                Info
               </Button>
               <Button
                 color="inherit"
@@ -266,7 +266,7 @@ const Nav = ({history}) => {
             button
             component={RouterLink}
             onClick={toggleDrawer(false)}
-            to="/"
+            to="/valmis"
           >
             <ListItemIcon style={{color: '#0e7b81'}}>
               <HomeIcon/>

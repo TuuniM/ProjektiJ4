@@ -19,7 +19,6 @@ const MediaRow = ({file, ownFiles, history, deleteMedia}) => {
   let desc = {};
   try {
     desc = JSON.parse(file.description);
-    console.log(desc);
   } catch (e) {
     desc = {description: file.description};
   }

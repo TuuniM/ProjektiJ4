@@ -7,13 +7,13 @@ import {MediaContext} from '../contexts/MediaContext';
 import {Button, Grid, TextField, Typography} from '@material-ui/core';
 
 const LoginForm = ({history}) => {
+  // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useContext(MediaContext);
   const {postLogin} = useLogin();
 
   const doLogin = async () => {
     try {
       const userdata = await postLogin(inputs);
-      console.log('userdata', userdata);
       localStorage.setItem('token', userdata.token);
       setUser(userdata.user);
       history.push('/');
@@ -27,7 +27,7 @@ const LoginForm = ({history}) => {
     password: '',
   });
 
-  console.log('LoginForm', inputs, user);
+  // console.log('LoginForm', inputs, user);
 
   return (
     <Grid container>

@@ -74,7 +74,6 @@ const Single = ({location}) => {
   let desc = {};
   try {
     desc = JSON.parse(file.description);
-    console.log(desc);
   } catch (e) {
     desc = {description: file.description};
   }
@@ -129,7 +128,6 @@ const Single = ({location}) => {
     try {
       const categories = await getTagsByFileId(file.file_id);
       setCategoryData(categories);
-      console.log('categories: ' + categories);
     } catch (e) {
       console.log(e.message);
     }
@@ -168,9 +166,6 @@ const Single = ({location}) => {
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">Lisää katkelma</h2>
-      {/* <p id="simple-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </p> */}
       <CommentForm fileId={file.file_id}/>
     </div>
   );
@@ -179,52 +174,57 @@ const Single = ({location}) => {
   return (
     <>
       <BackButton />
-      <Typography
-        component="h1"
-        variant="h2"
-        gutterBottom
-      >
-        {file.title}
-      </Typography>
       <Paper elevation="3">
         <Card className={classes.root}>
-          <CardMedia
-            component={file.media_type}
-            controls
-            className={classes.media}
-            image={uploadsUrl + file.filename}
-            title={file.title}
-            style={{
-              filter: `
-                      brightness(${desc.filters?.brightness}%)
-                      contrast(${desc.filters?.contrast}%)
-                      saturate(${desc.filters?.saturate}%)
-                      sepia(${desc.filters?.sepia}%)
-                      `,
-            }}
-          />
+          <div style={{background: '#0e7b81'}}>
+            <CardMedia
+              component={file.media_type}
+              controls
+              className={classes.media}
+              image={uploadsUrl + file.filename}
+              title={file.title}
+              style={{
+                width: '19%',
+                height: '20%',
+                filter: `
+                    brightness(${desc.filters?.brightness}%)
+                    contrast(${desc.filters?.contrast}%)
+                    saturate(${desc.filters?.saturate}%)
+                    sepia(${desc.filters?.sepia}%)
+                    `,
+              }}
+            />
+
+            <div style={{display: 'flex'}}>
+              <List style={flexContainer}>
+                {
+                  categories?.filter((item) => item.tag.toLowerCase() != appIdentifier).map((singletag)=> {
+                    return (<ListItem style={{width: 'auto'}} key={'single'+singletag.tag_id}>
+                      <Button variant="outlined" style={{width: 'auto', color: '#fafafa', background: '#000'}} size="small" disabled>{singletag.tag}</Button>
+                    </ListItem>
+                    );
+                  },
+                  )
+                }
+              </List>
+              <List>
+                <ListItem style={{display: 'none'}}>
+                  <ListItemAvatar>
+                    <Avatar variant={'circle'} src={avatar} />
+                  </ListItemAvatar>
+                  <Typography variant="subtitle2" style={{color: 'white'}}>{owner?.username}</Typography>
+                </ListItem>
+              </List>
+            </div>
+            <Typography style={{margin: '50px', color: 'white'}}
+              component="h4"
+              variant="h4"
+              gutterBottom
+            >
+              {file.title}
+            </Typography>
+          </div>
           <CardContent>
-            <List style={flexContainer}>
-              {
-                categories?.filter((item) => item.tag.toLowerCase() != appIdentifier).map((singletag)=> {
-                  return (<ListItem style={{width: 'auto'}} key={'single'+singletag.tag_id}>
-                    <Button variant="outlined" style={{width: 'auto', color: '#fafafa', background: '#000'}} size="small" disabled>{singletag.tag}</Button>
-                  </ListItem>
-                  );
-                },
-                )
-              }
-            </List>
-
-
-            <List>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar variant={'circle'} src={avatar} />
-                </ListItemAvatar>
-                <Typography variant="subtitle2">{owner?.username}</Typography>
-              </ListItem>
-            </List>
             <Typography gutterBottom>{desc.description}</Typography>
 
             <List>

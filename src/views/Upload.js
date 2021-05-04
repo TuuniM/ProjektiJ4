@@ -7,7 +7,7 @@ import {
   Grid,
   Typography,
   Slider,
-  MenuItem,
+  MenuItem, Card,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import {useEffect} from 'react';
@@ -110,40 +110,35 @@ const Upload = ({history}) => {
     }
   }, [inputs.file]);
 
-  // console.log(inputs, sliderInputs);
 
   return (
     <>
       <BackButton />
-      <Grid container style={{backgroundColor: '#ececec',
-        border: '1px solid #00000',
-        color: '#161616'}}>
-        <Grid item xs={12}>
-          <Typography style={{position: 'unset',
-            margin: 'auto',
-            width: '50%',
-            padding: '30px'}}
-          component="h1"
-          variant="h2"
-          gutterBottom
-          color="green"
-          >
+      <Card>
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography style={{display: 'flex', margin: '25px'}}
+              component="h4"
+              variant="h4"
+              gutterBottom
+              color="green"
+            >
 
             Luo uusi tarina
-          </Typography>
-        </Grid>
-        <Grid item>
-          {!loading ?
+            </Typography>
+          </Grid>
+          <Grid item>
+            {!loading ?
             <ValidatorForm onSubmit={handleSubmit}>
               <Grid container>
-                <Typography
-                  component="h4"
-                  variant="h4"
+                <Typography style={{display: 'flex', margin: 'auto'}}
+                  component="h5"
+                  variant="h5"
                   gutterBottom
                 >
                   Tarinan otsikko
                 </Typography>
-                <Grid item xs={12}>
+                <Grid item xs={10} style={{margin: 'auto', padding: '15px'}}>
                   <TextValidator
                     fullWidth
                     name="title"
@@ -154,14 +149,14 @@ const Upload = ({history}) => {
                     errorMessages={errorMessages.title}
                   />
                 </Grid>
-                <Typography
-                  component="h4"
-                  variant="h4"
+                <Typography style={{display: 'flex', margin: 'auto'}}
+                  component="h5"
+                  variant="h5"
                   gutterBottom
                 >
                   Tarinan aloitus
                 </Typography>
-                <Grid item xs={12}>
+                <Grid item xs={10} style={{margin: 'auto', padding: '15px'}}>
                   <TextValidator
                     fullWidth
                     name="description"
@@ -172,15 +167,15 @@ const Upload = ({history}) => {
                     errorMessages={errorMessages.description}
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <Typography
-                    component="h4"
-                    variant="h4"
+                <Grid item xs={10} style={{margin: 'auto', padding: '15px'}}>
+                  <Typography style={{display: 'flex', margin: 'auto'}}
+                    component="h5"
+                    variant="h5"
                     gutterBottom
                   >
                     Lisää tarinaan liittyvä kuva tai video
                   </Typography>
-                  <TextValidator
+                  <TextValidator style={{margin: 'auto', padding: '15px'}}
                     fullWidth
                     type="file"
                     name="file"
@@ -188,29 +183,32 @@ const Upload = ({history}) => {
                     onChange={handleFileChange}
                   />
                 </Grid>
-                <Typography
-                  component="h4"
-                  variant="h4"
+                <Typography style={{display: 'flex', margin: 'auto'}}
+                  component="h5"
+                  variant="h5"
                   gutterBottom
                 >
-                  Kategoria:
+                  Valitse Kategoria
                 </Typography>
-                <Grid item xs={12}>
-                  <SelectValidator
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={category}
-                    label=""
-                    onChange={handleChange}
-                    validators={validators.category}
-                    errorMessages={errorMessages.category}
-                  >
-                    {categories.map((item) =>
-                      <MenuItem key={item} value={item}>
-                        {item[0].toUpperCase()+item.slice(1)}
-                      </MenuItem>,
-                    )}
-                  </SelectValidator>
+                <Grid item xs={10} style={{display: 'flex', margin: 'auto'}}>
+                  <div style={{display: 'flex', margin: 'auto',
+                    padding: '15px'}}>
+                    <SelectValidator
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={category}
+                      label=""
+                      onChange={handleChange}
+                      validators={validators.category}
+                      errorMessages={errorMessages.category}
+                    >
+                      {categories.map((item) =>
+                        <MenuItem key={item} value={item}>
+                          {item[0].toUpperCase()+item.slice(1)}
+                        </MenuItem>,
+                      )}
+                    </SelectValidator>
+                  </div>
                 </Grid>
 
                 <Grid item xs={12}>
@@ -237,11 +235,11 @@ const Upload = ({history}) => {
                     src={inputs.dataUrl}
                     style={{
                       filter: `
-                      brightness(${sliderInputs.brightness}%)
-                      contrast(${sliderInputs.contrast}%)
-                      saturate(${sliderInputs.saturate}%)
-                      sepia(${sliderInputs.sepia}%)
-                      `,
+                    brightness(${sliderInputs.brightness}%)
+                    contrast(${sliderInputs.contrast}%)
+                    saturate(${sliderInputs.saturate}%)
+                    sepia(${sliderInputs.sepia}%)
+                    `,
                       width: '100%',
                     }}
                   />
@@ -304,9 +302,10 @@ const Upload = ({history}) => {
               }
             </ValidatorForm> :
             <CircularProgress/>
-          }
+            }
+          </Grid>
         </Grid>
-      </Grid>
+      </Card>
     </>
   );
 };

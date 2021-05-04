@@ -35,7 +35,7 @@ const MediaTable = ({ownFiles, category}) => {
   const {updateMedia, picArray, loading,
     deleteMedia} = useMedia(true, ownFiles, category);
 
-  console.log('MediaTable', picArray, 'Category:', category);
+  // console.log('MediaTable', picArray, 'Category:', category);
 
   useEffect(()=>{
     updateMedia();
