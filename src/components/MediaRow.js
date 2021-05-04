@@ -29,6 +29,9 @@ const MediaRow = ({file, ownFiles, history, deleteMedia}) => {
         src={uploadsUrl + file.thumbnails?.w320}
         alt={file.title}
         style={{
+          height: '100%',
+          width: '100%',
+          objectFit: 'cover',
           filter: `
             brightness(${desc.filters?.brightness}%)
             contrast(${desc.filters?.contrast}%)
