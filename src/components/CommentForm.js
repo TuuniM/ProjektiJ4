@@ -31,7 +31,7 @@ const CommentForm = (fileId) => {
         <TextField
           name="comment"
           id="filled-multiline-static"
-          label="My text:"
+          label="Katkelma:"
           multiline
           rows={10}
           fullWidth
