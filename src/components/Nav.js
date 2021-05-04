@@ -25,6 +25,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import React from 'react';
 import {categories} from '../utils/variables';
 import InfoIcon from '@material-ui/icons/Info';
+import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -175,10 +176,6 @@ const Nav = ({history}) => {
             >Kirjoita
             </Button>
 
-            <Button aria-controls="simple-menu" aria-haspopup="true"
-              onClick={handleClick}>
-             Hae kategorialla
-            </Button>
 
             <Menu
               id="simple-menu"
@@ -214,6 +211,10 @@ const Nav = ({history}) => {
           </Typography>
 
           <a className={classes.buttonCollapse2}>
+            <Button aria-controls="simple-menu" aria-haspopup="true"
+              onClick={handleClick} style={{color: 'white'}}>
+              <SearchIcon />Hae kategorialla
+            </Button>
             {user &&
             <>
               <Button
