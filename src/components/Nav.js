@@ -22,6 +22,7 @@ import Create from '@material-ui/icons/Create';
 import Add from '@material-ui/icons/Add';
 import PersonIcon from '@material-ui/icons/Person';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import InfoIcon from '@material-ui/icons/Info';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -239,6 +240,17 @@ const Nav = ({history}) => {
                 <PersonIcon style={{color: '#0e7b81'}}/>
               </ListItemIcon>
               <ListItemText primary="Profiili"/>
+            </ListItem>
+            <ListItem
+              button
+              component={RouterLink}
+              onClick={toggleDrawer(false)}
+              to="/info"
+            >
+              <ListItemIcon style={{color: '#0e7b81'}}>
+                <InfoIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Info"/>
             </ListItem>
           </>
           }

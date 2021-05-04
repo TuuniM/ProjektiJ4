@@ -10,7 +10,7 @@ const Info = () => {
       <Typography
         component="h1"
         variant="h3"
-        gutterBottom>Info</Typography>
+        gutterBottom> </Typography>
       <div className='player-wrapper'>
         <ReactPlayer
           className='react-player'
