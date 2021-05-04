@@ -24,6 +24,7 @@ import Add from '@material-ui/icons/Add';
 import PersonIcon from '@material-ui/icons/Person';
 import React from 'react';
 import {categories} from '../utils/variables';
+import InfoIcon from '@material-ui/icons/Info';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -109,7 +110,8 @@ const Nav = ({history}) => {
             categories
                 .indexOf(window.location.pathname.substr(1).toLowerCase()) ===
                 -1 &&
-              window.location.pathname !== ('/valmis') ) {
+              window.location.pathname !== ('/valmis') &&
+              window.location.pathname !== ('/info')) {
           history.push('/');
         }
       } catch (e) {
@@ -126,7 +128,8 @@ const Nav = ({history}) => {
             categories
                 .indexOf(window.location.pathname.substr(1)) === -1 &&
               window.location.pathname !== ('/valmis') &&
-              window.location.pathname !== ('/')) {
+              window.location.pathname !== ('/') &&
+              window.location.pathname !== ('/info')) {
           history.push('/login');
         }
       }
@@ -303,6 +306,17 @@ const Nav = ({history}) => {
                 <PersonIcon style={{color: '#0e7b81'}}/>
               </ListItemIcon>
               <ListItemText primary="Profiili"/>
+            </ListItem>
+            <ListItem
+              button
+              component={RouterLink}
+              onClick={toggleDrawer(false)}
+              to="/info"
+            >
+              <ListItemIcon style={{color: '#0e7b81'}}>
+                <InfoIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Info"/>
             </ListItem>
           </>
           }
