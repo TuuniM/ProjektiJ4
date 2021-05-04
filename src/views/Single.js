@@ -238,7 +238,7 @@ const Single = ({location}) => {
                 )
               }
             </List>
-            { (readyTag!=='Valmis') && <Button variant="contained" style={{color: '#fffff', background: '#0e7b81'}} onClick={()=> {
+            { (readyTag!=='Valmis') && <Button disabled={(localStorage.getItem('token') == null)} variant="contained" style={{color: '#fffff', background: '#0e7b81'}} onClick={()=> {
               handleOpen();
             }}><AssignmentIcon style={{marginLeft: -10, marginRight: 5, color: 'white'}}/>Lisää katkelma</Button>
             }
@@ -253,7 +253,7 @@ const Single = ({location}) => {
               {body}
             </Modal>
             {
-              (readyTag!=='Valmis') && <Button variant="contained" style={{color: '#fffff', background: '#0e7b81', margin: '5px'}} onClick={()=> {
+              (readyTag!=='Valmis') && <Button disabled={(localStorage.getItem('token') == null)} variant="contained" style={{color: '#fffff', background: '#0e7b81', margin: '5px'}} onClick={()=> {
                 markAsReady();
               }}><AssignmentTurnedInIcon style={{marginLeft: -10, marginRight: 5, color: 'white'}}/>Merkitse valmiiksi</Button>
             }
