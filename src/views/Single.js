@@ -17,7 +17,8 @@ import CommentForm from '../components/CommentForm';
 import {useTag, useUsers, useComments} from '../hooks/ApiHooks';
 import {useEffect, useState} from 'react';
 import Modal from '@material-ui/core/Modal';
-
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -159,9 +160,9 @@ const Single = ({location}) => {
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">Lisää katkelma</h2>
-      <p id="simple-modal-description">
+      {/* <p id="simple-modal-description">
         Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </p>
+      </p> */}
       <CommentForm fileId={file.file_id}/>
     </div>
   );
@@ -231,7 +232,7 @@ const Single = ({location}) => {
             </List>
             { (readyTag!=='Valmis') && <Button variant="contained" style={{color: '#fffff', background: '#0e7b81'}} onClick={()=> {
               handleOpen();
-            }}>Lisää katkelma</Button>
+            }}><AssignmentIcon style={{marginLeft: -10, marginRight: 5, color: 'white'}}/>Lisää katkelma</Button>
             }
             <Modal
               open={open}
@@ -244,9 +245,9 @@ const Single = ({location}) => {
               {body}
             </Modal>
             {
-              (readyTag!=='Valmis') && <Button variant="contained" style={{color: '#fffff', background: '#0e7b81'}} onClick={()=> {
+              (readyTag!=='Valmis') && <Button variant="contained" style={{color: '#fffff', background: '#0e7b81', margin: '5px'}} onClick={()=> {
                 markAsReady();
-              }}>Merkitse valmiiksi</Button>
+              }}><AssignmentTurnedInIcon style={{marginLeft: -10, marginRight: 5, color: 'white'}}/>Merkitse valmiiksi</Button>
             }
           </CardContent>
         </Card>
