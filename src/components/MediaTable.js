@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import MediaRow from './MediaRow';
 import {useMedia} from '../hooks/ApiHooks';
 import {
@@ -27,13 +28,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MediaTable = ({ownFiles}) => {
+const MediaTable = ({ownFiles, category}) => {
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:697px)');
 
-  const {picArray, loading, deleteMedia} = useMedia(true, ownFiles);
+  const {updateMedia, picArray, loading,
+    deleteMedia} = useMedia(true, ownFiles, category);
 
-  console.log('MediaTable', picArray);
+  // console.log('MediaTable', picArray, 'Category:', category);
+
+  useEffect(()=>{
+    updateMedia();
+  }, [category]);
+
 
   return (
     <div className={classes.root}>
@@ -42,11 +49,12 @@ const MediaTable = ({ownFiles}) => {
         className={classes.gridList}
         cols={matches ? 3 : 1}>
         {!loading ?
-          picArray.map((item) =>
-            <GridListTile key={item.file_id}>
+          picArray.map((item, idx) =>
+            <GridListTile key={idx}>
               <MediaRow
                 file={item}
                 ownFiles={ownFiles}
+                category={category}
                 deleteMedia={deleteMedia}
               />
             </GridListTile>) :
@@ -61,6 +69,7 @@ const MediaTable = ({ownFiles}) => {
 
 MediaTable.propTypes = {
   ownFiles: PropTypes.bool,
+  category: PropTypes.string,
 };
 
 export default MediaTable;

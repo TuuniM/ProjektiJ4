@@ -3,6 +3,8 @@ import {useEffect, useState, useContext} from 'react';
 import {appIdentifier, baseUrl} from '../utils/variables';
 import {MediaContext} from '../contexts/MediaContext';
 
+// console.log(categories);
+
 // general function for fetching (options default value is empty object)
 const doFetch = async (url, options = {}) => {
   const response = await fetch(url, options);
@@ -19,39 +21,108 @@ const doFetch = async (url, options = {}) => {
   }
 };
 
-// set update to true, if you want to use getMedia automagically
-const useMedia = (update = false, ownFiles) => {
+const useMedia = (update = false, ownFiles, category) => {
   const [picArray, setPicArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const [user] = useContext(MediaContext);
 
-  if (update) {
-    useEffect(() => {
-      try {
-        (async () => {
+  const updateMedia = async () => {
+    try {
+      (async () => {
+        if (category !== undefined) {
+          const media = await getMediaByCategory();
+          setPicArray(media);
+        } else {
           const media = await getMedia();
           setPicArray(media);
-        })();
-      } catch (e) {
-        alert(e.message);
-      }
+        }
+      })();
+    } catch (e) {
+      alert(e.message);
+    }
+  };
+
+  if (update) {
+    useEffect(() => {
+      updateMedia();
     }, []);
   }
 
   const getMedia = async () => {
     try {
       setLoading(true);
+
       const files = await doFetch(baseUrl + 'tags/' + appIdentifier);
-      // console.log(files);
+
       let allFiles = await Promise.all(files.map(async (item) => {
         return await doFetch(baseUrl + 'media/' + item.file_id);
       }));
+
       if (ownFiles && user !== null) {
         allFiles = allFiles.filter((item) => {
           return item.user_id === user.user_id;
         });
       }
+
       return allFiles;
+    } catch (e) {
+      throw new Error(e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const asyncFilter = async (arr, predicate) => Promise.all(arr.map(predicate))
+      .then((results) => arr.filter((_v, index) => results[index]));
+
+  const getMediaByCategory = async () => {
+    try {
+      let allFiles=[];
+      setLoading(true);
+      const files = await doFetch(baseUrl + 'tags/' + appIdentifier);
+
+      if (category.toLowerCase()==='kesken') {
+        let notReadyFiles=[];
+
+        notReadyFiles = await asyncFilter(files, async (item) => {
+          const cats = await doFetch(baseUrl + 'tags/file/' + item.file_id);
+          if (cats.filter((cat)=>cat.tag.toLowerCase()==='valmis').length==0) {
+            return true;
+          } else {
+            return false;
+          };
+        });
+
+        allFiles = await Promise.all(notReadyFiles.map(async (item) => {
+          return await doFetch(baseUrl + 'media/' + item.file_id);
+        }));
+      } else {
+        let hasCategoryFiles=[];
+
+        hasCategoryFiles = await asyncFilter(files, async (item) => {
+          const cats = await doFetch(baseUrl + 'tags/file/' + item.file_id);
+          if (cats.filter((cat)=>cat.tag.toLowerCase()===category).length>0) {
+            return true;
+          } else {
+            return false;
+          };
+        });
+
+        allFiles = await Promise.all(hasCategoryFiles.map(async (item) => {
+          return await doFetch(baseUrl + 'media/' + item.file_id);
+        }));
+      }
+
+      const noduplicates= allFiles.reduce((acc, current) => {
+        const x = acc.find((item) => item.file_id === current.file_id);
+        if (!x) {
+          return acc.concat([current]);
+        } else {
+          return acc;
+        }
+      }, []);
+
+      return noduplicates;
     } catch (e) {
       throw new Error(e.message);
     } finally {
@@ -117,7 +188,7 @@ const useMedia = (update = false, ownFiles) => {
     }
   };
 
-  return {getMedia, postMedia, putMedia, deleteMedia, loading, picArray};
+  return {updateMedia, getMedia, getMediaByCategory, postMedia, putMedia, deleteMedia, loading, picArray};
 };
 
 const useUsers = () => {
@@ -317,3 +388,4 @@ const useComments = () => {
   return {getComments, postComment, loading};
 };
 export {useMedia, useUsers, useLogin, useTag, useComments};
+

@@ -2,21 +2,23 @@
 import {uploadsUrl, appIdentifier} from '../utils/variables';
 import PropTypes from 'prop-types';
 import {
+  Avatar,
   Button,
   Card,
   CardContent,
-  CardMedia, List, ListItem,
+  CardMedia, List, ListItem, ListItemAvatar,
   makeStyles,
-  Paper, Avatar, ListItemAvatar,
+  Paper,
   // TextField,
-  Typography,
+  Typography, Tooltip,
 } from '@material-ui/core';
 import BackButton from '../components/BackButton';
 import CommentForm from '../components/CommentForm';
 import {useTag, useUsers, useComments} from '../hooks/ApiHooks';
 import {useEffect, useState} from 'react';
 import Modal from '@material-ui/core/Modal';
-
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     position: 'absolute',
-    width: 300,
+    width: 400,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -37,16 +39,25 @@ const useStyles = makeStyles((theme) => ({
 
 const getModalStyle = () => {
   const top = 50;
-  const left = 30;
+  const left = 50;
   return {
     top: `${top}%`,
     left: `${left}%`,
+    width: `fit-content`,
     transform: `translate(-${top}%, -${left}%)`,
   };
 };
 
+const flexContainer = {
+  display: 'flex',
+  flexWrap: 'wrap',
+  flexDirection: 'row',
+  margin: '1px',
+  alignItems: 'flex-start',
+};
 
-const Single = ({location}) => {
+
+const Single = ({location, history}) => {
   const [owner, setOwner] = useState(null);
   const [avatar, setAvatar] = useState('logo512.png');
   const classes = useStyles();
@@ -61,12 +72,11 @@ const Single = ({location}) => {
 
 
   const file = location.state;
-  let desc = {}; // jos kuva tallennettu ennen week4C, description ei ole JSONia
+  let desc = {};
   try {
     desc = JSON.parse(file.description);
-    console.log(desc);
   } catch (e) {
-    desc = {description: file.description};
+    desc = {description: file?.description};
   }
 
 
@@ -119,7 +129,6 @@ const Single = ({location}) => {
     try {
       const categories = await getTagsByFileId(file.file_id);
       setCategoryData(categories);
-      console.log('categories: ' + categories);
     } catch (e) {
       console.log(e.message);
     }
@@ -151,14 +160,16 @@ const Single = ({location}) => {
     return ()=>clearInterval(interval);
   }, [open]);
 
-
-  if (file.media_type === 'image') file.media_type = 'img';
-
+  if (file) {
+    if (file.media_type === 'image') file.media_type = 'img';
+  } else {
+    history.push('/');
+  }
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h3 id="simple-modal-title">Lisää katkelma</h3>
-      <CommentForm fileId={file.file_id}/>
+      <h2 id="simple-modal-title">Lisää katkelma</h2>
+      <CommentForm fileId={file?.file_id}/>
     </div>
   );
 
@@ -170,34 +181,36 @@ const Single = ({location}) => {
         <Card className={classes.root}>
           <div style={{background: '#0e7b81'}}>
             <CardMedia
-              component={file.media_type}
+              component={file?.media_type}
               controls
               className={classes.media}
-              image={uploadsUrl + file.filename}
-              title={file.title}
+              image={uploadsUrl + file?.filename}
+              title={file?.title}
               style={{
                 width: '19%',
                 height: '20%',
                 filter: `
-                      brightness(${desc.filters?.brightness}%)
-                      contrast(${desc.filters?.contrast}%)
-                      saturate(${desc.filters?.saturate}%)
-                      sepia(${desc.filters?.sepia}%)
-                      `,
+                    brightness(${desc.filters?.brightness}%)
+                    contrast(${desc.filters?.contrast}%)
+                    saturate(${desc.filters?.saturate}%)
+                    sepia(${desc.filters?.sepia}%)
+                    `,
               }}
             />
 
             <div style={{display: 'flex'}}>
-              <List>
+              <List style={flexContainer}>
+
                 {
                   categories?.filter((item) => item.tag.toLowerCase() != appIdentifier).map((singletag)=> {
-                    return (<ListItem key={singletag.tag_id}>
-                      <Button variant="outlined" style={{color: '#fafafa', background: '#000'}} size="small" disabled>{singletag.tag}</Button>
+                    return (<ListItem style={{width: 'auto'}} key={'single'+singletag.tag_id}>
+                      <Button variant="outlined" style={{width: 'auto', color: '#fafafa', background: '#000'}} size="small" disabled>{singletag.tag}</Button>
                     </ListItem>
                     );
                   },
                   )
                 }
+
               </List>
               <List>
                 <ListItem style={{display: 'none'}}>
@@ -213,7 +226,7 @@ const Single = ({location}) => {
               variant="h4"
               gutterBottom
             >
-              {file.title}
+              {file?.title}
             </Typography>
           </div>
           <CardContent>
@@ -230,9 +243,24 @@ const Single = ({location}) => {
                 )
               }
             </List>
-            { (readyTag!=='Valmis') && <Button variant="contained" style={{color: '#fffff', background: '#0e7b81'}} onClick={()=> {
-              handleOpen();
-            }}>Lisää katkelma</Button>
+            { (readyTag!=='Valmis') &&
+            <Tooltip
+              arrow
+              title={(localStorage.getItem('token') == null) ? 'Kirjaudu sisään!' : ''}
+              placement="top"
+              aria-label="Lisää katkelma">
+              <span>
+                <Button
+                  disabled={(localStorage.getItem('token') == null)}
+                  variant="contained"
+                  style={{color: '#fffff', background: '#0e7b81'}}
+                  onClick={()=> {
+                    handleOpen();
+                  }}><AssignmentIcon style={{marginLeft: -10, marginRight: 5, color: 'white'}}/>
+                  Lisää katkelma
+                </Button>
+              </span>
+            </Tooltip>
             }
             <Modal
               open={open}
@@ -245,9 +273,25 @@ const Single = ({location}) => {
               {body}
             </Modal>
             {
-              (readyTag!=='Valmis') && <Button variant="contained" style={{color: '#fffff', background: '#0e7b81'}} onClick={()=> {
-                markAsReady();
-              }}>Merkitse valmiiksi</Button>
+              (readyTag!=='Valmis') &&
+              <Tooltip
+                arrow
+                title={(localStorage.getItem('token') == null) ? 'Kirjaudu sisään!' : '' || (comments?.length < 5 && (localStorage.getItem('token') !== null)) ? 'Vaaditaan vähintään 5 katkelmaa' : '' }
+                placement="top"
+                aria-label="Merkkaa valmiiksi">
+                <span>
+                  <Button
+                    disabled={(localStorage.getItem('token') == null) || (comments?.length < 5)}
+                    variant="contained"
+                    style={{color: '#fffff', background: '#0e7b81', margin: '5px'}}
+                    onClick={()=> {
+                      markAsReady();
+                    }}>
+                    <AssignmentTurnedInIcon style={{marginLeft: -10, marginRight: 5, color: 'white'}}/>
+                    Merkitse valmiiksi
+                  </Button>
+                </span>
+              </Tooltip>
             }
           </CardContent>
         </Card>
@@ -258,6 +302,8 @@ const Single = ({location}) => {
 
 Single.propTypes = {
   location: PropTypes.object,
+  history: PropTypes.object,
 };
 
 export default Single;
+

@@ -4,13 +4,12 @@ import {useContext, useEffect} from 'react';
 import {MediaContext} from '../contexts/MediaContext';
 import {Redirect} from 'react-router-dom';
 
-const Logout = ({history}) => {
+const Logout = () => {
   const [user, setUser] = useContext(MediaContext);
 
   useEffect(()=>{
     setUser(null);
     localStorage.clear();
-    // history.push('/');
   }, []);
 
   return (

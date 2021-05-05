@@ -32,4 +32,3 @@ const useForm = (callback, initState) => {
 
 export default useForm;
 
-

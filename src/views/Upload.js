@@ -14,24 +14,13 @@ import {useEffect} from 'react';
 import {ValidatorForm, TextValidator,
   SelectValidator} from 'react-material-ui-form-validator';
 import useSlider from '../hooks/SliderHooks';
-import {useState} from 'react';
 import BackButton from '../components/BackButton';
-// import {makeStyles} from '@material-ui/core/styles';
-
-// const useStyles = makeStyles((theme) => ({
-//   formControl: {
-//     margin: theme.spacing(1),
-//     minWidth: 120,
-//   },
-//   selectEmpty: {
-//     marginTop: theme.spacing(2),
-//   },
-// }));
+import {useState} from 'react';
+import {categories} from '../utils/variables';
 
 const Upload = ({history}) => {
   const {postMedia, loading} = useMedia();
   const {postTag, postCategoryTag} = useTag();
-  // const classes = useStyles();
   const [category, setCategory] = useState('');
 
   const handleChange = (event) => {
@@ -43,18 +32,19 @@ const Upload = ({history}) => {
     title: ['required', 'minStringLength: 3'],
     // eslint-disable-next-line max-len
     description: ['minStringLength: 10'],
+    category: ['required'],
   };
 
   const errorMessages = {
     title: ['Otsikko', 'Vähintään 3 merkkiä'],
     description: ['Vähintään 10 merkkiä'],
+    category: ['Valitse kategoria!'],
   };
 
   const doUpload = async () => {
     try {
       const fd = new FormData();
       fd.append('title', inputs.title);
-      // kuvaus + filtterit tallennetaan description kenttään
       const desc = {
         description: inputs.description,
         filters: sliderInputs,
@@ -120,7 +110,6 @@ const Upload = ({history}) => {
     }
   }, [inputs.file]);
 
-  // console.log(inputs, sliderInputs);
 
   return (
     <>
@@ -210,22 +199,14 @@ const Upload = ({history}) => {
                         value={category}
                         label=""
                         onChange={handleChange}
+                        validators={validators.category}
+                        errorMessages={errorMessages.category}
                       >
-                        <MenuItem value={'Komedia'}>Komedia</MenuItem>
-                        <MenuItem value={'Draama'}>Draama</MenuItem>
-                        <MenuItem value={'Kauhu'}>Kauhu</MenuItem>
-                        <MenuItem value={'Fantasia'}>Fantasia</MenuItem>
-                        <MenuItem value={'Jännitys'}>Jännitys</MenuItem>
-                        <MenuItem value={'Mysteeri'}>Mysteeri</MenuItem>
-                        <MenuItem value={'Romantiikka'}>Romantiikka</MenuItem>
-                        <MenuItem value={'Sci-fi'}>Sci-fi</MenuItem>
-                        <MenuItem value={'Runot'}>Runot</MenuItem>
-                        <MenuItem value={'Yleinen keskustelu'}>
-                          Yleinen keskustelu</MenuItem>
-                        <MenuItem value={'Vitsit'}>Vitsit</MenuItem>
-                        <MenuItem value={'Kysymyksiä ja vastauksia'}>
-                          Kysymyksiä ja vastauksia</MenuItem>
-                        <MenuItem value={'Muut'}>Muut</MenuItem>
+                        {categories.map((item) =>
+                          <MenuItem key={item} value={item}>
+                            {item[0].toUpperCase()+item.slice(1)}
+                          </MenuItem>,
+                        )}
                       </SelectValidator>
                     </div>
                   </Grid>
@@ -254,11 +235,11 @@ const Upload = ({history}) => {
                       src={inputs.dataUrl}
                       style={{
                         filter: `
-                      brightness(${sliderInputs.brightness}%)
-                      contrast(${sliderInputs.contrast}%)
-                      saturate(${sliderInputs.saturate}%)
-                      sepia(${sliderInputs.sepia}%)
-                      `,
+                    brightness(${sliderInputs.brightness}%)
+                    contrast(${sliderInputs.contrast}%)
+                    saturate(${sliderInputs.saturate}%)
+                    sepia(${sliderInputs.sepia}%)
+                    `,
                         width: '100%',
                       }}
                     />

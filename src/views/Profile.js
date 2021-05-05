@@ -41,8 +41,6 @@ const Profile = () => {
     })();
   }, [user, update]);
 
-  console.log(avatar);
-
   return (
     <>
       <BackButton />
@@ -103,4 +101,5 @@ const Profile = () => {
 };
 
 export default Profile;
+
 

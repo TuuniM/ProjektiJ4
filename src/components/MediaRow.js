@@ -16,10 +16,9 @@ const useStyles = makeStyles((theme) => ({
 const MediaRow = ({file, ownFiles, history, deleteMedia}) => {
   const classes = useStyles();
 
-  let desc = {}; // jos kuva tallennettu ennen week4C, description ei ole JSONia
+  let desc = {};
   try {
     desc = JSON.parse(file.description);
-    console.log(desc);
   } catch (e) {
     desc = {description: file.description};
   }
@@ -30,6 +29,9 @@ const MediaRow = ({file, ownFiles, history, deleteMedia}) => {
         src={uploadsUrl + file.thumbnails?.w320}
         alt={file.title}
         style={{
+          height: '100%',
+          width: '100%',
+          objectFit: 'cover',
           filter: `
             brightness(${desc.filters?.brightness}%)
             contrast(${desc.filters?.contrast}%)
