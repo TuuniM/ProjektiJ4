@@ -37,27 +37,27 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(4),
   },
   title: {
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       display: 'block',
       flexGrow: 1,
     },
     display: 'none',
   },
   buttonCollapse2: {
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       display: 'block',
     },
     display: 'none',
   },
   drawer: {
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       display: 'none',
     },
     display: 'block',
     flex: 1,
   },
   logout: {
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       display: 'block',
       flexGrow: 1,
     },
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   logo: {
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       display: 'block',
       flexGrow: 0,
     },
