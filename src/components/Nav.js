@@ -111,7 +111,8 @@ const Nav = ({history}) => {
                 -1 &&
               window.location.pathname !== ('/valmis') &&
               window.location.pathname !== ('/info') &&
-              window.location.pathname !== ('/single')) {
+              window.location.pathname !== ('/single') &&
+              window.location.pathname !== ('/kesken')) {
           history.push('/');
         }
       } catch (e) {
@@ -130,7 +131,8 @@ const Nav = ({history}) => {
               window.location.pathname !== ('/valmis') &&
               window.location.pathname !== ('/') &&
               window.location.pathname !== ('/info') &&
-              window.location.pathname !== ('/single')) {
+              window.location.pathname !== ('/single') &&
+              window.location.pathname !== ('/kesken')) {
           history.push('/login');
         }
       }
@@ -172,7 +174,7 @@ const Nav = ({history}) => {
             <Button
               color="inherit"
               component={RouterLink}
-              to="/"
+              to="/kesken"
             >Kirjoita
             </Button>
 
@@ -279,7 +281,7 @@ const Nav = ({history}) => {
               button
               component={RouterLink}
               onClick={toggleDrawer(false)}
-              to="/"
+              to="/kesken"
             >
               <ListItemIcon style={{color: '#0e7b81'}}>
                 <Create/>

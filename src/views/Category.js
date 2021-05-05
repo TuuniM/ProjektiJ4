@@ -11,6 +11,8 @@ const Category = () => {
     let categoryTitle = '';
     if (category == 'valmis') {
       categoryTitle = 'Lue';
+    } else if (category == 'kesken') {
+      categoryTitle = 'Kirjoita';
     } else {
       categoryTitle = category[0].toUpperCase()+category.slice(1).toLowerCase();
     }

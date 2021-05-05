@@ -56,7 +56,7 @@ const flexContainer = {
 };
 
 
-const Single = ({location}) => {
+const Single = ({location, history}) => {
   const [owner, setOwner] = useState(null);
   const [avatar, setAvatar] = useState('logo512.png');
   const classes = useStyles();
@@ -75,7 +75,7 @@ const Single = ({location}) => {
   try {
     desc = JSON.parse(file.description);
   } catch (e) {
-    desc = {description: file.description};
+    desc = {description: file?.description};
   }
 
 
@@ -159,14 +159,16 @@ const Single = ({location}) => {
     return ()=>clearInterval(interval);
   }, [open]);
 
-
-  if (file.media_type === 'image') file.media_type = 'img';
-
+  if (file) {
+    if (file.media_type === 'image') file.media_type = 'img';
+  } else {
+    history.push('/');
+  }
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">Lisää katkelma</h2>
-      <CommentForm fileId={file.file_id}/>
+      <CommentForm fileId={file?.file_id}/>
     </div>
   );
 
@@ -178,11 +180,11 @@ const Single = ({location}) => {
         <Card className={classes.root}>
           <div style={{background: '#0e7b81'}}>
             <CardMedia
-              component={file.media_type}
+              component={file?.media_type}
               controls
               className={classes.media}
-              image={uploadsUrl + file.filename}
-              title={file.title}
+              image={uploadsUrl + file?.filename}
+              title={file?.title}
               style={{
                 width: '19%',
                 height: '20%',
@@ -223,7 +225,7 @@ const Single = ({location}) => {
               variant="h4"
               gutterBottom
             >
-              {file.title}
+              {file?.title}
             </Typography>
           </div>
           <CardContent>
@@ -299,6 +301,7 @@ const Single = ({location}) => {
 
 Single.propTypes = {
   location: PropTypes.object,
+  history: PropTypes.object,
 };
 
 export default Single;

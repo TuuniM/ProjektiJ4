@@ -21,7 +21,6 @@ const doFetch = async (url, options = {}) => {
   }
 };
 
-// set update to true, if you want to use getMedia automagically
 const useMedia = (update = false, ownFiles, category) => {
   const [picArray, setPicArray] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -73,14 +72,46 @@ const useMedia = (update = false, ownFiles, category) => {
     }
   };
 
+  const asyncFilter = async (arr, predicate) => Promise.all(arr.map(predicate))
+      .then((results) => arr.filter((_v, index) => results[index]));
+
   const getMediaByCategory = async () => {
     try {
+      let allFiles=[];
       setLoading(true);
-      const files = await doFetch(baseUrl + 'tags/' + category);
+      const files = await doFetch(baseUrl + 'tags/' + appIdentifier);
 
-      const allFiles = await Promise.all(files.map(async (item) => {
-        return await doFetch(baseUrl + 'media/' + item.file_id);
-      }));
+      if (category.toLowerCase()==='kesken') {
+        let notReadyFiles=[];
+
+        notReadyFiles = await asyncFilter(files, async (item) => {
+          const cats = await doFetch(baseUrl + 'tags/file/' + item.file_id);
+          if (cats.filter((cat)=>cat.tag.toLowerCase()==='valmis').length==0) {
+            return true;
+          } else {
+            return false;
+          };
+        });
+
+        allFiles = await Promise.all(notReadyFiles.map(async (item) => {
+          return await doFetch(baseUrl + 'media/' + item.file_id);
+        }));
+      } else {
+        let hasCategoryFiles=[];
+
+        hasCategoryFiles = await asyncFilter(files, async (item) => {
+          const cats = await doFetch(baseUrl + 'tags/file/' + item.file_id);
+          if (cats.filter((cat)=>cat.tag.toLowerCase()===category).length>0) {
+            return true;
+          } else {
+            return false;
+          };
+        });
+
+        allFiles = await Promise.all(hasCategoryFiles.map(async (item) => {
+          return await doFetch(baseUrl + 'media/' + item.file_id);
+        }));
+      }
 
       const noduplicates= allFiles.reduce((acc, current) => {
         const x = acc.find((item) => item.file_id === current.file_id);

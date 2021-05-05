@@ -7,7 +7,7 @@ const Home = () => {
       <Typography
         component="h1"
         variant="h2"
-        gutterBottom>Tarinat</Typography>
+        gutterBottom>Kaikki tarinat</Typography>
       <MediaTable ownFiles={false}/>
     </>
   );
