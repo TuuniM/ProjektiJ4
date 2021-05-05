@@ -43,6 +43,7 @@ const getModalStyle = () => {
   return {
     top: `${top}%`,
     left: `${left}%`,
+    maxWidth: `max-content`,
     width: `fit-content`,
     transform: `translate(-${top}%, -${left}%)`,
   };
