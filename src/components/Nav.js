@@ -286,17 +286,6 @@ const Nav = ({history}) => {
             </ListItemIcon>
             <ListItemText primary="Kirjoita"/>
           </ListItem>
-          <ListItem
-            button
-            component={RouterLink}
-            onClick={toggleDrawer(false)}
-            to="/info"
-          >
-            <ListItemIcon style={{color: '#0e7b81'}}>
-              <InfoIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Info"/>
-          </ListItem>
           {user &&
           <>
             <ListItem
@@ -323,6 +312,17 @@ const Nav = ({history}) => {
             </ListItem>
           </>
           }
+          <ListItem
+            button
+            component={RouterLink}
+            onClick={toggleDrawer(false)}
+            to="/info"
+          >
+            <ListItemIcon style={{color: '#0e7b81'}}>
+              <InfoIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Info"/>
+          </ListItem>
         </List>
       </Drawer>
     </>
