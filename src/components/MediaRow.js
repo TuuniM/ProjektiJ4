@@ -67,7 +67,7 @@ const MediaRow = ({file, ownFiles, history, deleteMedia}) => {
                                onClick={() => {
                                  try {
                                    // eslint-disable-next-line max-len
-                                   const conf = confirm('Do you really want to delete?');
+                                   const conf = confirm('Haluatko varmasti poistaa?');
                                    if (conf) {
                                      // eslint-disable-next-line max-len
                                      deleteMedia(file.file_id, localStorage.getItem('token'));
